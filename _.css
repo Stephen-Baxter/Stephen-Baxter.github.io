@@ -1,0 +1,176 @@
+.body10
+{
+	background-image: url("Background_Image.jpg");
+	width: 100vw;
+	height: 100vh;
+	background-attachment: fixed;
+	margin: 0px;
+}
+
+h2
+{
+	margin: 0px;
+	font-size: 2.5vw;
+}
+p
+{
+	font-size: 2vw;
+	margin: 0px;
+	padding-top: 1.4vw;
+	padding-bottom: 1.4vw;
+}
+button
+{
+	font-size: 2vw;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0.70vw;
+}
+.inactive
+{
+	background: rgba(255, 255, 255, 0.0);
+}
+.inactive:hover
+{
+	background: rgba(255, 255, 255, 0.25);
+}
+.active
+{
+	background: rgba(255, 255, 255, 0.50);
+}
+
+.body11
+{
+	width: 70vw;
+	margin-top: 0.9vw;
+	margin-bottom: 0.9vw;
+	margin-left: 14.9vw;
+	margin-right: 14.9vw;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	background: rgba(255, 255, 255, 0.80);
+}
+
+.Title
+{
+	width: 68vw;
+	background: rgba(255, 255, 255, 0.50);
+	margin: 0.9vw;
+	display: inline-block;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+}
+.Title img
+{
+	float: left;
+	width: 17vw;
+	margin: 0px;
+}
+.Title .T
+{
+	display: inline-block;
+	float: right;
+	width: 51vw;
+	margin: 0.0vw;
+}
+.T h1
+{
+	font-size: 5.2vw;
+	margin-block-start: 0em;
+    	margin-block-end: 0em;
+}
+
+.PageDescription
+{
+	width: 68vw;
+	background: rgba(255, 255, 255, 0.50);
+	margin: 0.9vw;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+}
+.PageDescription ol
+{
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	background: rgba(255, 255, 255, 1);
+	width: 15vw;
+	font-size: 2vw;
+}
+
+.ProjectsList1000
+{
+	margin: 0.9vw;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+}
+.ProjectsList1100
+{
+	background: rgba(255, 255, 255, 0.50);
+}
+.ProjectsList1200
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.button1200
+{
+	width: 66vw;
+	display: inline-block;;
+}
+.tablinks0
+{
+	width: 22vw;
+}
+.ProjectsList1210
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.button1210
+{
+	width: 64vw;
+	display: inline-block;;
+}
+.tablinks1
+{
+	width: 12.8vw;
+}
+.ProjectsList1211
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.button1211
+{
+	width: 62vw;
+	display: inline-block;;
+}
+.tablinks2
+{
+	width: 15.5vw;
+}
+.table1211
+{
+	width: 62vw;
+	border-top: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.table1211 table
+{
+	width: 62vw;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	background: rgba(255, 255, 255, 0.50);
+}
+.table1211 table thead tr th
+{
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	font-size: 2.5vw;
+}
+.table1211 table tbody tr td
+{
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	font-size: 2.5vw;
+}
+
+.tabcontent0
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.tabcontent1, .tabcontent2
+{
+	background: rgba(255, 255, 255, 0.50);
+	border-top: 1vw solid rgba(255, 255, 255, 0);
+}
