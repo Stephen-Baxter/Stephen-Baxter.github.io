@@ -6,7 +6,12 @@ window.onload = function ()
 {
 	tab = [[0, 0], [0, 0, 0, 0], [0, 0, 0]];
 
-	programList = data;
+	programList = [
+	[[[1,0], [1,0,0,0], [1,0,0]], "Website", "https://github.com/Stephen-Baxter"],
+	[[[0,1], [0,1,0,0], [0,1,0]], "RPG Dice", "https://github.com/Stephen-Baxter/CppProjects/tree/master/CLI/RPG%20Dice"],
+	[[[0,1], [0,0,1,0], [0,1,0]], "RPG Dice", "https://github.com/Stephen-Baxter/CsProjects/tree/master/CLI/RPG%20Dice"],
+	[[[0,1], [0,0,0,1], [0,1,0]], "RPG Dice", "https://github.com/Stephen-Baxter/VB.netProjects/tree/master/CLI/RPG%20Dice"]
+];
 
 	document.getElementById("df2").click();
 	document.getElementById("df3").click();
