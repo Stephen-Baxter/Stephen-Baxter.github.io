@@ -95,6 +95,92 @@ button
 	font-size: 2vw;
 }
 
+.AIDemonstration100
+{
+	width: 68vw;
+	margin: 0.9vw;
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+}
+.AIDemonstration110
+{
+	background: rgba(255, 255, 255, 0.50);
+}
+.AIDemonstration120B
+{
+	width: 66vw;
+	display: inline-block;
+	overflow: hidden;
+}
+.tablinksAI
+{
+	width: 25%;
+	height: 10vw;
+}
+.AIDemonstration121
+{
+	float: left;
+	background: rgba(255, 255, 255, 0.50);
+	padding-top: 1vw;
+	width: 33vw;
+	height: 69vw;
+	display: inline-block;
+}
+.AIDemonstration120
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+	width: 66vw;
+	display: inline-block;
+}
+.AIDemonstration121 canvas
+{
+	float: left;
+	width: 33vw;
+}
+.AIDemonstration120 .AIDemonstration122
+{
+	display: inline-block;
+	float: right;
+	width: 31vw;
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+}
+.AIDemonstration120 .AIDemonstration122
+{
+	width: 31vw;
+	border-bottom: 1vw solid rgba(255, 255, 255, 0.50);
+	display: inline-block;
+	overflow: hidden;
+}
+.AIDemonstration120 .AIDemonstration122_3T
+{
+	background: rgba(255, 255, 255, 0.50);
+	height: 55vw; 
+	overflow: auto;
+}
+.tablinksQT
+{
+	width: 50%;
+}
+.AIDemonstration122_3T table
+{
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	width: 31vw;
+}
+.AIDemonstration122_3T table tbody tr td
+{
+	border: 0.1vw solid rgba(191.25, 191.25, 191.25, 1.0);
+	font-size: 1vw;
+}
+.AIDemonstration130
+{
+	border: 1vw solid rgba(255, 255, 255, 0.50);
+	display: inline-block;
+}
+.AIDemonstration130 .gameButton
+{
+	float: left;
+	width: 33vw;
+}
+
 .ProjectsList1000
 {
 	margin: 0.9vw;
