@@ -13,10 +13,54 @@ window.onload = function ()
 		       [[[0,1], [0,0,0,1], [0,1,0]], "RPG Dice", "https://github.com/Stephen-Baxter/VB.netProjects/tree/master/CLI/RPG%20Dice"],
 		       [[[1,0], [0,1,0,0], [0,0,1]], "GPC2PCC", "https://github.com/Stephen-Baxter/GPC2PCC"]
 		      ];
-
+	document.getElementById("df0").click();
+	
 	document.getElementById("df2").click();
 	document.getElementById("df3").click();
 	document.getElementById("df4").click();
+	
+	Reset();
+}
+
+function SelectAI(button, number)
+{
+	AISelected = number
+
+	var tablinks;
+
+	tablinks = document.getElementsByClassName("tablinksAI");
+
+	for (var i = 0; i < tablinks.length; i++)
+	{
+		tablinks[i].className = tablinks[i].className.replace(" active", " inactive");
+	}
+
+	button.className = button.className.replace(" inactive", " active");
+
+	var tablinks2;
+
+	tablinks2 = document.getElementsByClassName("AIDemonstration122");
+
+	for (var i = 0; i < tablinks2.length; i++)
+	{
+		if (tablinks2[i].style.display == "inline-block")
+		{
+			tablinks2[i].style.display = "none";
+		}
+	}
+
+	var AI_ = document.getElementsByClassName("AI_" + number);
+
+	AI_[0].style.display = "inline-block";
+
+	var GB = document.getElementsByClassName("AIDemonstration130");
+
+	GB[0].style.display = "none";
+
+	if (number == 1)
+	{
+		GB[0].style.display = "block";
+	}
 }
 
 function FindProjects(button, number)
