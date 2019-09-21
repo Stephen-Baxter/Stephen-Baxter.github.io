@@ -7,6 +7,9 @@
 		
 		<link rel = "stylesheet" type = "text/css" href = "/css/main.css">
 		<script type = "text/javascript" src = "js/main.js"></script>
+		
+		<script type = "text/javascript" src = "js/QTableBrainJS.js"></script>
+		<script type = "text/javascript" src = "js/test(BD).js"></script>
 	</head>
 
 	<body class = "body10">
@@ -33,6 +36,7 @@
 				<ol>Contents
 					<li><a href = "#il1" style = "text-decoration: none">Title</a></li>
 					<li><a href = "#il2" style = "text-decoration: none">Page Description</a></li>
+					<li><a href = "#il3" style = "text-decoration: none">AI Demonstration</a></li>
 					<li><a href = "#il4" style = "text-decoration: none">Projects List</a></li>
 				</ol>
 				<p>
@@ -51,6 +55,49 @@
 					Thank you,<br>
 					Stephen Baxter
 				</p>
+			</div>
+			
+			<div class = "AIDemonstration100" id = il3>
+				<div class = "AIDemonstration110">
+					<h2>Artificial Intellects(AI) Demonstration</h2>
+				</div>
+				<div class = "AIDemonstration120">
+					<div class = "AIDemonstration110B">
+						<button class="tablinksAI inactive" onclick="SelectAI(this, 1)">User<br>Controlled</button>
+						<button class="tablinksAI inactive" onclick="SelectAI(this, 2)">Genetic<br>Algorithm<br>Controlled</button>
+						<button class="tablinksAI inactive" onclick="SelectAI(this, 3)" id="df0">Q Learning<br>Controlled</button>
+						<button class="tablinksAI inactive" onclick="SelectAI(this, 4)">Deep Q<br>Learning<br>Controlled</button>
+					</div>
+					<div class = "AIDemonstration121">
+						<canvas id="gc" width = "180" height = "300"></canvas>
+						<div class = "debugArea">
+							<p id = "states"></p>
+							<button onclick="Pausing(0)" id="dfAI0">Start</button>
+							<button onclick="Pausing(1)" id="dfAI0">Pause</button>
+						`	<button onclick="Reset()" id="dfAI0">Reset</button>
+						</div>
+					</div>
+					<div class = "AIDemonstration122 AI_1">
+					</div>
+					<div class = "AIDemonstration122 AI_2">
+					</div>
+					<div class = "AIDemonstration122 AI_3">
+						<div class = "AIDemonstration122_3T">
+							<table>
+								<tbody id = "qTable"></tbody>
+							</table>
+						</div>
+						<div class = "AIDemonstration122_3S">
+							
+						</div>
+					</div>
+					<div class = "AIDemonstration122 AI_4">
+					</div>
+				</div>
+				<div class = "AIDemonstration130">
+					<button class="gameButton" onclick="Turn(1)">Left</button>
+					<button class="gameButton" onclick="Turn(2)">Right</button>
+				</div>
 			</div>
 			
 			<div class = "ProjectsList1000" id = il4>
