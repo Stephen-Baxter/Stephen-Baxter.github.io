@@ -20,7 +20,3 @@ Microsoft Paint for Background Image jpg creation
 # Author
 Stephen Baxter
 
-# License
-This project is licensed under the
-MIT License - see the LICENSE
-file for details
