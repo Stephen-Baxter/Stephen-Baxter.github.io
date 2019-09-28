@@ -2,25 +2,25 @@
 
 The purpose of this website is to showcase and provide a easy way to find projects from this GitHub.
 
-#Known Compatible Browser(s)
+# Known Compatible Browser(s)
 google chrome
 
-#Link
+# Link
 https://stephen-baxter.github.io
 
-#Built With
+# Built With
 Notepad for code writing
 google chrome for debugging
 Microsoft Paint for Background Image jpg creation
 
-#Version
+# Version
 1.1.0
 
 
-#Author
+# Author
 Stephen Baxter
 
-#License
+# License
 This project is licensed under the
 MIT License - see the LICENSE
 file for details
