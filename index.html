@@ -1,163 +1,61 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0">
+    <title>Stephen Baxter's Github Webpage</title>
+    <link rel="shortcut icon" href="Stephen_Baxter_Icon_256.png" type="image/x-icon">
 
-<html>
-	<head>
-		<meta charset = "utf-8">
-		<title>Stephen Baxter's Github Webpage</title>
-		
-		<link rel = "stylesheet" type = "text/css" href = "/css/main.css">
-		<script type = "text/javascript" src = "js/main.js"></script>
-		
-		<script type = "text/javascript" src = "js/QTableBrainJS.js"></script>
-		<script type = "text/javascript" src = "js/test(BD).js"></script>
-	</head>
+    <script type = "text/javascript" src = "index.js"></script>
+	<link href = "index.css" rel = "stylesheet" />
+</head>
+<body>
+    <div id="TOP_NAV_BAR">
+        <div id="SECTIONS_GIDE">
+            <div id="DROP_DOWN_BUTTON">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div id="DROP_DOWN_LIST">
+                <a href="#HOME">Home</a>
+                <a href="#DEMONSTRATIONS">Demonstrations</a>
+                <a href="#PROJECTS">Projects</a>
+            </div>
+        </div>
+        <div id="ICON">
+            <img id="ICON_IMAGE" src = "Stephen_Baxter_Icon_256.png" alt = "Profile Image">
+        </div>
+        <div id="LINKS">
 
-	<body class = "body10">
-		<div class = "body11">
-			<div class = "Title" id = il1>
-				<img src = "Profile_Image.jpg" alt = "Profile Image">
-				<div class = "T">
-					<h1>Stephen Baxter's</h1>
-					<h1>Github Webpage</h1>
-				</div>
-			</div>
+        </div>
+    </div>
 
-			<div class = "PageDescription" id = il2>
-				<h2>Page Description</h2>
-				<p>
-					Greetings viewer of this webpage.
-				</p>
-				<p>
-					&nbsp&nbsp&nbsp&nbsp The purpose of this page is to showcase and provide a easy way to find projects from my GitHub.
-				</p>
-				<p>
-					&nbsp&nbsp&nbsp&nbsp The main GitHub page can be found at <a href = "https://github.com//Stephen-Baxter">https://github.com//Stephen-Baxter</a>
-				</p>
-				<ol>Contents
-					<li><a href = "#il1" style = "text-decoration: none">Title</a></li>
-					<li><a href = "#il2" style = "text-decoration: none">Page Description</a></li>
-					<li><a href = "#il3" style = "text-decoration: none">AI Demonstration</a></li>
-					<li><a href = "#il4" style = "text-decoration: none">Projects List</a></li>
-				</ol>
-				<p>
-					Title:<br>
-					&nbsp&nbsp&nbsp&nbsp The title contains my GitHub profile picture and the name of this webpage.
-				</p>
-				<p>
-					Page Description:<br>
-					&nbsp&nbsp&nbsp&nbsp The page description introduces the visitors to the page and provides a brief overview of its contents.
-				</p>
-				<p>
-					Projects List:<br>
-					&nbsp&nbsp&nbsp&nbsp The projects list provides a list of all my GitHub projects and the means to locate specified ones.
-				</p>
-				<p>
-					Thank you,<br>
-					Stephen Baxter
-				</p>
-			</div>
-			
-			<div class = "AIDemonstration100" id = il3>
-				<div class = "AIDemonstration110">
-					<h2>Artificial Intellects(AI) Demonstration</h2>
-				</div>
-				<div class = "AIDemonstration120">
-					<div class = "AIDemonstration110B">
-						<button class="tablinksAI inactive" onclick="SelectAI(this, 1)">User<br>Controlled</button>
-						<button class="tablinksAI inactive" onclick="SelectAI(this, 2)">Genetic<br>Algorithm<br>Controlled</button>
-						<button class="tablinksAI inactive" onclick="SelectAI(this, 3)" id="df0">Q Learning<br>Controlled</button>
-						<button class="tablinksAI inactive" onclick="SelectAI(this, 4)">Deep Q<br>Learning<br>Controlled</button>
-					</div>
-					<div class = "AIDemonstration121">
-						<canvas id="gc" width = "180" height = "300"></canvas>
-						<div class = "debugArea">
-							<p id = "states"></p>
-							<button onclick="Pausing(0)" id="dfAI0">Start</button>
-							<button onclick="Pausing(1)" id="dfAI0">Pause</button>
-						`	<button onclick="Reset()" id="dfAI0">Reset</button>
-						</div>
-					</div>
-					<div class = "AIDemonstration122 AI_1">
-					</div>
-					<div class = "AIDemonstration122 AI_2">
-					</div>
-					<div class = "AIDemonstration122 AI_3">
-						<div class = "AIDemonstration122_3T">
-							<table>
-								<tbody id = "qTable"></tbody>
-							</table>
-						</div>
-						<div class = "AIDemonstration122_3S">
-							
-						</div>
-					</div>
-					<div class = "AIDemonstration122 AI_4">
-					</div>
-				</div>
-				<div class = "AIDemonstration130">
-					<button class="gameButton" onclick="Turn(1)">Left</button>
-					<button class="gameButton" onclick="Turn(2)">Right</button>
-				</div>
-			</div>
-			
-			<div class = "ProjectsList1000" id = il4>
-				<div class = "ProjectsList1100">
-					<h2>Projects List</h2>
-					<p>
-						&nbsp&nbsp&nbsp&nbsp The tabs below can be used to limit the search results, row one are the classes, row two are the languages, and row three are the interfaces types.<br><br>
-						Class:<br>
-						&nbsp&nbsp&nbsp&nbsp Unique are projects that are created to perform a specified action or purpose and have their own names.<br>
-						&nbsp&nbsp&nbsp&nbsp Generic are projects that are created to provide proof of coding abilities and may have names used my other projects.<br><br>
-						Language:<br>
-						&nbsp&nbsp&nbsp&nbsp HTML5 are projects created using the HTML5, JavaScript, and CSS languages.<br>
-						&nbsp&nbsp&nbsp&nbsp C++ are projects created using the C pluses pluses language.<br>
-						&nbsp&nbsp&nbsp&nbsp C# are projects created using the C sharp language.<br>
-						&nbsp&nbsp&nbsp&nbsp VB are projects created using the visual basic.net language.<br><br>
-						Interface:<br>
-						&nbsp&nbsp&nbsp&nbsp GUI are projects that use a graphic user interface for the user to interact with the program.<br>
-						&nbsp&nbsp&nbsp&nbsp CLI are projects that use a command line interface for the user to interact with the program.<br>
-						&nbsp&nbsp&nbsp&nbsp NVI are projects that have no visual interface for the user to interact with the program.<br>
-					</p>
-				</div>
-				<div class = "ProjectsList1200">
-					<div class = button1200>
-						<button class="tablinks0 inactive" onclick="FindProjects(this, 0)">Unique</button>
-						<button class="tablinks0 inactive" onclick="FindProjects(this, 0)">Generic</button>
-						<button class="tablinks0 inactive" onclick="FindProjects(this, 0)" id="df2">all</button>
-					</div>
-					<div class = "ProjectsList1210">
-						<div class = button1210>
-							<button class="tablinks1 inactive" onclick="FindProjects(this, 1)">HTML5</button>
-							<button class="tablinks1 inactive" onclick="FindProjects(this, 1)">C++</button>
-							<button class="tablinks1 inactive" onclick="FindProjects(this, 1)">C#</button>
-							<button class="tablinks1 inactive" onclick="FindProjects(this, 1)">VB</button>
-							<button class="tablinks1 inactive" onclick="FindProjects(this, 1)" id="df3">all</button>
-						</div>
-						<div class = "ProjectsList1211">
-							<div class = button1211>
-								<button class="tablinks2 inactive" onclick="FindProjects(this, 2)">GUI</button>
-								<button class="tablinks2 inactive" onclick="FindProjects(this, 2)">CLI</button>
-								<button class="tablinks2 inactive" onclick="FindProjects(this, 2)">NVI</button>
-								<button class="tablinks2 inactive" onclick="FindProjects(this, 2)" id="df4">all</button>
-							</div>
-							<div class = table1211>
-								<table>
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Class</th>
-											<th>Language</th>
-											<th>Interface</th>
-											<th>Name</th>
-										</tr>
-									</thead>
-									<tbody id = "projects"></tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+    <div id="SECTIONS">
+        <div id="HOME">
+            <p>
+                <img src = "Headshot_256.jpg" alt = "Profile Image">
+                HOME
+            </p>
+        </div>
+        <div id="DEMONSTRATIONS">
+            <p>
+                Demonstrations
+                <canvas height="1000px"></canvas>
+            </p>
+        </div>
+        <div id="PROJECTS">
+            <div id="CATEGORY_SELECTOR">
+                <div><div>LANGUAGE</div><div>TYPE</div><div>USER INTERFACE</div></div>
+                <div><div>ALL</div><div>ALL</div><div>ALL</div></div>
+                <div><div>C++</div><div>UTILITY</div><div>GUI</div></div>
+                <div><div>C#</div><div>FILE EDITOR</div><div>CLI</div></div>
+                <div><div>VISUAL BASIC</div><div>WEB SITE</div><div>NVI</div></div>
+                <div><div>PYTHON</div><div>EDUCATION</div></div>
+                <div><div>HTML/CSS</div><div>GAME</div></div>
+                <div><div>JAVASCRIPT</div></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
