@@ -2,59 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0">
-    <title>Stephen Baxter's Github Webpage</title>
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stephen Baxter's Website</title>
 
+    <script type = "text/javascript" src = "C:\github\javascript-sdk\jquery\jquery-3.6.0.min.js"></script>
     <script type = "text/javascript" src = "index.js"></script>
 	<link href = "index.css" rel = "stylesheet" />
 </head>
-<body>
-    <div id="TOP_NAV_BAR">
-        <div id="SECTIONS_GIDE">
-            <div id="DROP_DOWN_BUTTON">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div id="DROP_DOWN_LIST">
-                <a href="#HOME">Home</a>
-                <a href="#DEMONSTRATIONS">Demonstrations</a>
-                <a href="#PROJECTS">Projects</a>
-            </div>
-        </div>
-        <div id="ICON">
-            <img id="ICON_IMAGE" src = "Stephen_Baxter_Icon_256.png" alt = "Profile Image">
-        </div>
-        <div id="LINKS">
+<body onload="main()">
+    <div id="LAYOUT_">
+        <div id="HEADER_">
 
         </div>
-    </div>
+        <div id="MENU_DESKTOP_">
+            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(0);">Home</div>
+            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(1);">AI</div>
+            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(2);">A Program for<br>every language</div>
+        </div>
+        <div id="MENU_MOBILE_">
+            <div id="MENU_MOBILE_DROPDOWN_BUTTON_"></div>
+        </div>
+        <div id="MAIN_">
+            <div id="HOME_PAGE_"></div>
+            <div id="AI_PAGE_"></div>
+        </div>
+        <div id="FOOTER_">
 
-    <div id="SECTIONS">
-        <div id="HOME">
-            <p>
-                <img src = "Headshot_256.jpg" alt = "Profile Image">
-                HOME
-            </p>
-        </div>
-        <div id="DEMONSTRATIONS">
-            <p>
-                Demonstrations
-                <canvas height="1000px"></canvas>
-            </p>
-        </div>
-        <div id="PROJECTS">
-            <div id="CATEGORY_SELECTOR">
-                <div><div>LANGUAGE</div><div>TYPE</div><div>USER INTERFACE</div></div>
-                <div><div>ALL</div><div>ALL</div><div>ALL</div></div>
-                <div><div>C++</div><div>UTILITY</div><div>GUI</div></div>
-                <div><div>C#</div><div>FILE EDITOR</div><div>CLI</div></div>
-                <div><div>VISUAL BASIC</div><div>WEB SITE</div><div>NVI</div></div>
-                <div><div>PYTHON</div><div>EDUCATION</div></div>
-                <div><div>HTML/CSS</div><div>GAME</div></div>
-                <div><div>JAVASCRIPT</div></div>
-            </div>
         </div>
     </div>
 </body>
