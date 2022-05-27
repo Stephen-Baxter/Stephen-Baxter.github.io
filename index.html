@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xml:lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
     <title>Stephen Baxter's Website</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="shortcut icon" href="Stephen_Baxter_Icon_256.png" type="image/x-icon">
+
+    <script type = "text/javascript" src = "C:\github\javascript-sdk\jquery\jquery-3.6.0.min.js"></script>
+    <script type = "text/javascript" src = "three.min.js"></script>
+    <script type = "text/javascript" src = "HomePage/HomePage.js"></script>
     <script type = "text/javascript" src = "index.js"></script>
 	<link href = "index.css" rel = "stylesheet" />
 </head>
-<body onload="main()">
+<body onload="main()"  onscroll="OnPageScroll()">
     <div id="LAYOUT_">
         <div id="HEADER_">
+            <div id="MENU_MOBILE_DROPDOWN_BUTTON_" onclick="ToggleMenuInMobile()"><img src = "Menu_dropdown_button_256.png" alt = "Menu"></div>
+            <a id="ICON_" onclick="ChangeMainPage(0);" href="#HOME_PAGE_"><img src = "Stephen_Baxter_Icon_256.png" alt = "Icon Image"></a>
+            <a id="ICON_" style="grid-area: Githb_Link_;" href="https://github.com/Stephen-Baxter"><img src = "Githb_Link_Icon.png" alt = "Github"></a>
+            <a id="ICON_" style="grid-area: LINKEDIN_Link_;" href="https://www.linkedin.com/in/stephen-baxter-387812195?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BScu2vvpMTEaqiHD0dYDYTw%3D%3D"><img src = "LinkedIn_Link_Icon.png" alt = "LinkedIn"></a>
+        </div>
+        <div id="MENU_">
+            <a class="MENU_BUTTON_" onclick="ChangeMainPage(0);" href="#HOME_PAGE_"><img src = "H.png" alt = "H">Home</a>
+            <a class="MENU_BUTTON_" onclick="ChangeMainPage(1);" href="#AI_DEMONSTRATION_PAGE_"><img src = "A.png" alt = "A">AI Demonstration</a>
+            <a class="MENU_BUTTON_" onclick="ChangeMainPage(2);" href="#OTHER_PROJECTS_PAGE_"><img src = "P.png" alt = "P">Project list</a>
+        </div>
+        <div id="MAIN_CONTAINOR"><div id="MAIN_">
+            <div class="MAIN_PAGE_" id="HOME_PAGE_">
+                <div id="HOME_PAGE_3D_EFECT_CONTAINER_"><canvas id="HOME_PAGE_3D_EFECT_"></canvas></div>
+                <div class="TEXT_AREA_CONTAINER_"><div class="TEXT_AREA_">
+                    <img src = "Head_Shot_512.png" alt = "Head Shot">
+                </div></div>
+            </div>
+            <div class="MAIN_PAGE_" id="AI_DEMONSTRATION_PAGE_">
+                <div class="TEXT_AREA_CONTAINER_"><div class="TEXT_AREA_">
 
-        </div>
-        <div id="MENU_DESKTOP_">
-            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(0);">Home</div>
-            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(1);">AI</div>
-            <div class="MENU_BUTTON_DESKTOP_" onclick="ChangeMainPage(2);">A Program for<br>every language</div>
-        </div>
-        <div id="MENU_MOBILE_">
-            <div id="MENU_MOBILE_DROPDOWN_BUTTON_"></div>
-        </div>
-        <div id="MAIN_">
-            <div id="HOME_PAGE_"></div>
-            <div id="AI_PAGE_"></div>
-        </div>
+                </div></div>
+            </div>
+            <div class="MAIN_PAGE_" id="OTHER_PROJECTS_PAGE_">
+                <div class="TEXT_AREA_CONTAINER_"><div class="TEXT_AREA_">
+                    <p>test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </p>
+                </div></div>
+            </div>
+        </div></div>
         <div id="FOOTER_">
-
+            Stephen Baxter
         </div>
     </div>
 </body>
