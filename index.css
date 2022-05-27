@@ -1,3 +1,14 @@
+p
+{
+    margin: 0;
+    width: clamp(25ch, 50%, 75ch);
+}
+img
+{
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
 body
 {
     position: absolute;
@@ -8,55 +19,150 @@ body
 
 #LAYOUT_
 {
-    background-color: aqua;
     width: 100%;
     height: 100%;
-    display: grid;
+    display: inline-grid;
+    grid-template-rows: 50px auto 20px;
     grid-template-columns: 200px auto auto;
 }
 
 #HEADER_
 {
-    background-color: rgb(35, 198, 84);
+    background-color: rgb(60, 60, 60);
     grid-area: HEADER_;
-    
+    display: grid;
+    grid-template-areas: "MENU_MOBILE_DROPDOWN_BUTTON_ . ICON_ . Githb_Link_ LINKEDIN_Link_";
+    grid-template-rows: 50px;
+    grid-template-columns: 50px calc(50% - 75px) 50px auto 50px 50px;
 }
-#MENU_DESKTOP_
+#ICON_
 {
-    background-color: rgb(163, 35, 198);
-    grid-area: MENU_DESKTOP_;
+    grid-area: ICON_;
+    height: 100%;
 }
-.MENU_BUTTON_DESKTOP_
+#ICON_ img
 {
-    width: 100%;
-    height: 50px;
-    background-color: silver;
-}
-.MENU_BUTTON_DESKTOP_:hover
-{
-    background-color: rgb(0, 255, 0);
-}
-#MENU_MOBILE_
-{
-    background-color: rgb(136, 0, 255);
-    grid-area: MENU_MOBILE_;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
+    border-radius: 50%;
 }
 #MENU_MOBILE_DROPDOWN_BUTTON_
 {
     width: 50px;
     height: 50px;
+    grid-area: MENU_MOBILE_DROPDOWN_BUTTON_;
+    transition: 400ms;
+
+}
+#MENU_MOBILE_DROPDOWN_BUTTON_ img
+{
+    height: 100%;
+    border-radius: 50%;
+}
+#MENU_
+{
     background-color: silver;
+    grid-area: MENU_;
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-areas: 'MENU_BUTTON_' 'MENU_BUTTON_' 'MENU_BUTTON_' '.';
+    grid-template-rows: 100px 100px 100px auto;
+    grid-template-columns: auto;
+    z-index: 1;
+    overflow: auto;
+}
+.MENU_BUTTON_
+{
+    all: unset;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    background-color: silver;
+    border: 10px solid rgb(60, 60, 60);;
+    position: relative;
+    font-family: monospace;
+    font-size: 1.5em;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.MENU_BUTTON_:hover, .MENU_BUTTON_.SELECTED_
+{
+    background-color: rgb(0, 255, 0);
+    border: 10px solid red;
+}
+.MENU_BUTTON_ img
+{
+    height: 50%;
+    border-radius: 50%;
+    transition: 1s;
+}
+#MAIN_CONTAINOR
+{
+    background-image: url("Background_Image_1_32x64.png");
+    overflow: hidden;
+    grid-area: MAIN_;
+    perspective: 1200px;
 }
 #MAIN_
 {
-    background-color: rgb(198, 144, 35);
-    grid-area: MAIN_;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: 1s;
+    transform-style: preserve-3d;
 }
 #FOOTER_
 {
-    background-color: rgb(243, 9, 9);
+    background-color: silver;
     grid-area: FOOTER_;
+}
+#HOME_PAGE_
+{
+    background: black;
+    position: absolute;
+}
+#HOME_PAGE_3D_EFECT_CONTAINER_
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#HOME_PAGE_3D_EFECT_
+{
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    z-index: -1;
+}
+#AI_DEMONSTRATION_PAGE_
+{
+    background-image: url("Background_Image_2_32x64.png");
+}
+#OTHER_PROJECTS_PAGE_
+{
+    background-image: url("Background_Image_2_32x64.png");
+}
+.MAIN_PAGE_
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    
+}
+.TEXT_AREA_CONTAINER_
+{
+    position: fixed;
+    padding: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    overflow: auto;
+}
+.TEXT_AREA_
+{
+    width: 100%;
+    height: 1200px;
+    background-color: rgba(192, 192, 192, 0.25);
 }
