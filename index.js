@@ -1,4 +1,3 @@
-///<reference path="C:\github\javascript-sdk\jquery\jquery-3.6.0.min.js"></reference>
 let indexVariables = null;
 class INDEX_VARIABLES
 {
