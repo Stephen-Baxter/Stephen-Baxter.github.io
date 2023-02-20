@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Language" content="en">
+        <title>Stephen Baxter's Website</title>
+
+        <link rel="shortcut icon" href="Images/Stephen_Baxter_Icon_256.png" type="image/x-icon">
+
+        <script type = "text/javascript" src = "C:\github\javascript-sdk\jquery\jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src = "three.min.js"></script>
+        <script type = "text/javascript" src = "JakUtilities.js"></script>
+        <script type = "text/javascript" src = "index.js"></script>
+        <script type = "text/javascript" src = "HomePage/HomePage.js"></script>
+        <script type = "text/javascript" src = "HomePage/HomePageText.js"></script>
+        <script type = "text/javascript" src = "AIDemonstrationPage/AIDemonstrationPage.js"></script>
+        <script type = "text/javascript" src = "AIDemonstrationPage/JakQTableBrain.js"></script>
+        <script type = "text/javascript" src = "OtherProjectsPage/OtherProjectsPage.js"></script>
+        <script type = "text/javascript" src = "OtherProjectsPage/RepoData.js"></script>
+    	<link href = "index.css" rel = "stylesheet" />
+
+        <script>window.onload = main;</script>
+
+    </head>
+    <body>
+        <div id="LAYOUT_">
+            <nav id="HEADER_">
+                <div id="MENU_MOBILE_DROPDOWN_BUTTON_" onclick="ToggleMenuInMobile()"><img src = "Images/Menu_dropdown_button_256.png" alt = "Menu"></div>
+                <a id="ICON_" onclick="ChangeMainPage(0);" href="#HOME_PAGE_"><img src = "Images/Stephen_Baxter_Icon_256.png" alt = "Icon Image"></a>
+                <a id="GITHUB_LINK_" title="Github" target="_blank" href="https://github.com/Stephen-Baxter"><img src = "Images/Githb_Link_Icon.png" alt = "Github"></a>
+                <a id="LINKEDIN_LINK_" title="LinkedIn" target="_blank" href="https://www.linkedin.com/in/stephen-baxter-387812195?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BScu2vvpMTEaqiHD0dYDYTw%3D%3D"><img src = "Images/LinkedIn_Link_Icon.png" alt = "LinkedIn"></a>
+            </nav>
+            <nav id="MENU_">
+                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(0);" href="#HOME_PAGE_"><img src = "Images/H.png" alt = "H">Home</a>
+                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(1);" href="#AI_DEMONSTRATION_PAGE_"><img src = "Images/A.png" alt = "A">AI Demonstration</a>
+                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(2);" href="#OTHER_PROJECTS_PAGE_"><img src = "Images/P.png" alt = "P">Project list</a>
+            </nav>
+            <main><div id="MAIN_">
+                <div class="MAIN_PAGE_" id="HOME_PAGE_">
+                    <div id="HOME_PAGE_3D_EFECT_CONTAINER_"><canvas id="HOME_PAGE_3D_EFECT_"></canvas></div>
+                    <div id="HOME_PAGE_TEXT_AREA_"><div class="TEXT_AREA_CONTAINER_">
+                        <img class="TEXT_AREA_" id="HEAD_SHOT_" style="grid-area: HEAD_SHOT_;" src = "Images/Head_Shot_512.png" alt = "Head Shot">
+                        <div class="TEXT_AREA_" id="TITLE_" style="grid-area: TITLE_;">
+                            <header><h1>Stephen Baxter's<br>Website</h1></header>
+                            
+                            
+                        </div>
+                        <div class="TEXT_AREA_" id="WORK_HISTORY_" style="grid-area: WORK_HISTORY_;">
+                            <header><h2>Work History</h2></header>
+                            <div>
+                                Student Worker - DMS Specialist, June 2021 to present: Center for IT Excellence, Texas A&M University-Commerce, Commerce, Texas<br>Designing, creating, testing, and implementing Laserfiche forms
+                            </div>
+                            <div>
+                                Mentor, Fall of 2021 to present: Atypical Ambassadors, Texas A&M University-Commerce, Commerce, Texas<br>Help mentor two students, with school work, coping with problems, and being there if they need someone to talk to.
+                            </div>
+                            <div>
+                                Volunteer, Summer of 2021: Rains County Good Samaritans, Emory, Texas<br>Moving, sorting, and shelving donated items for resell.
+                            </div>
+                        </div>
+                        <div class="TEXT_AREA_" id="ABOUT_WEBSITE_" style="grid-area: ABOUT_WEBSITE_;">
+                            <header><h2>About This Website</h2></header>
+                            
+                        </div>
+                    </div></div>
+                </div>
+                <div class="MAIN_PAGE_" id="AI_DEMONSTRATION_PAGE_">
+                    <div class="TEXT_AREA_CONTAINER_">
+                        <div id="AI_PLAY_AREA_">
+                            <div id="SCORE_"></div>
+                            <div id="FIX_GAP_"><canvas id="SCENE_" width = "300" height = "200"></canvas></div>
+                            <div id="AI_PLAY_AREA_BUTTONS_">
+                                <div class="BUTTON_" onclick="PauseToggle()">Pause</div>
+                                <div class="BUTTON_" onclick="Reset()">Reset</div>
+                                <div class="BUTTON_" onclick="AIToggle()">Turn on AI</div>
+                            </div>
+                            <div id="AI_CONTROLS_">
+                                <div>Reward for dodging -----------: <input type="number" value="10"></div>
+                                <div>Reward for hitting -----------: <input type="number" value="-100"></div>
+                                <div>Chance of taking random action: <input type="number" value="0.98"></div>
+                                <div>Alpha ------------------------: <input type="number" value="0.0001"></div>
+                                <div>Gamma ------------------------: <input type="number" value="0.8"></div>
+                            </div>
+                            <div id="MANUAL_CONTROLS_">
+                                <div class="BUTTON_" onclick="TurnPlayerLeft()">LEFT</div>
+                                <div class="BUTTON_" onclick="TurnPlayerRight()">RIGHT</div>
+                            </div>
+                        </div>
+                        <table id="Q_TABLE_">
+                            <tr><td colspan="4">Q TABLE</td></tr>
+                            <tr><td>State \ Action</td><td>turn left</td><td>keep going straight</td><td>turn right</td></tr>
+                            <tr><td>State 1</td><td>022</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 2</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 3</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 4</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 5</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 6</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 7</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 8</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 9</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 10</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 11</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 12</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 13</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 14</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 15</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 16</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 17</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 18</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 19</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 20</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 21</td><td>0</td><td>1</td><td>2</td></tr>
+                        </table>
+                        <div class="TEXT_AREA_" style="grid-area: QT_;">test</div>
+                    </div>
+                </div>
+                <div class="MAIN_PAGE_" id="OTHER_PROJECTS_PAGE_">
+                    <div class="TEXT_AREA_CONTAINER_"><div class="TEXT_AREA_">
+                        <div id="GITHUB_REPOS_"></div>
+                    </div></div>
+                </div>
+            </div></main>
+            <footer>
+                Stephen Baxter
+            </footer>
+        </div>
+    </body>
+</html>

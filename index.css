@@ -1,0 +1,278 @@
+p
+{
+    margin: 10px;
+    width: clamp(25ch, 50%, 75ch);
+}
+img
+{
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body
+{
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+h1
+{
+    margin: 0;
+    text-align: center;
+    font-size: 7vw;
+}
+h2
+{
+    margin: 0;
+    text-align: center;
+    font-size: 4vw;
+}
+
+.BUTTON_
+{
+    all: unset;
+    background-color: silver;
+    height: calc(100% - 20px);
+    border: 10px solid rgb(60, 60, 60);
+    font-family: monospace;
+    font-size: 1.5em;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.BUTTON_:focus, .BUTTON_.HOVER_, .BUTTON_.SELECTED_
+{
+    background-color: rgb(127, 255, 127);
+    border: 10px solid rgb(255, 127, 127);
+}
+
+#LAYOUT_
+{
+    width: 100%;
+    height: 100%;
+    display: inline-grid;
+    grid-template-rows: 50px auto 20px;
+    grid-template-columns: 200px auto auto;
+}
+
+#HEADER_
+{
+    background-color: rgb(60, 60, 60);
+    grid-area: HEADER_;
+    display: grid;
+    grid-template-areas: "MENU_MOBILE_DROPDOWN_BUTTON_ . ICON_ . GITHUB_LINK_ LINKEDIN_LINK_";
+    grid-template-rows: 50px;
+    grid-template-columns: 50px calc(50% - 75px) 50px auto 50px 50px;
+}
+#HEADER_ img
+{
+    height: 100%;
+    border-radius: 50%;
+}
+#ICON_
+{
+    grid-area: ICON_;
+    height: 100%;
+}
+#MENU_MOBILE_DROPDOWN_BUTTON_
+{
+    width: 50px;
+    height: 50px;
+    grid-area: MENU_MOBILE_DROPDOWN_BUTTON_;
+    transition: 400ms;
+    cursor: pointer;
+}
+#GITHUB_LINK_
+{
+    grid-area: GITHUB_LINK_;
+}
+#LINKEDIN_LINK_
+{
+    grid-area: LINKEDIN_LINK_;
+}
+#MENU_
+{
+    background-color: silver;
+    grid-area: MENU_;
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-areas: 'MENU_BUTTON_' 'MENU_BUTTON_' 'MENU_BUTTON_' '.';
+    grid-template-rows: 100px 100px 100px auto;
+    grid-template-columns: auto;
+    z-index: 1;
+    overflow: auto;
+}
+.MENU_BUTTON_
+{
+    height: calc(100% - 20px);
+    position: relative;
+    font-family: monospace;
+    font-size: 1.5em;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.MENU_BUTTON_ img
+{
+    height: 50%;
+    border-radius: 50%;
+    transition: 1s;
+}
+main
+{
+    background-image: url("Images/Background_Image_1_32x64.png");
+    overflow: hidden;
+    grid-area: MAIN_;
+    perspective: 1200px;
+}
+#MAIN_
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+footer
+{
+    background-color: silver;
+    grid-area: FOOTER_;
+    text-align: center;
+}
+#HOME_PAGE_
+{
+    background: rgb(0, 0, 0);
+    position: absolute;
+}
+#HOME_PAGE_3D_EFECT_CONTAINER_
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#HOME_PAGE_3D_EFECT_
+{
+    
+    overflow: hidden;
+    z-index: -1;
+}
+#HOME_PAGE_TEXT_AREA_
+{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+/*#HEAD_SHOT_
+{
+    width: 25%;
+}*/
+#AI_DEMONSTRATION_PAGE_
+{
+    background-image: url("Images/Background_Image_2_32x64.png");
+    overflow: auto;
+}
+#AI_PLAY_AREA_
+{
+    grid-area: AI_PLAY_AREA_;
+    width: 100%;
+}
+#AI_PLAY_AREA_ #SCORE_
+{
+    background-color: rgba(192, 192, 192, 0.75);
+    text-align: center;
+    vertical-align:bottom;
+    font-family: monospace;
+    font-size: 150%;
+    width: calc(100% - 2px);
+    border: 1px solid rgb(60, 60, 60);
+}
+#AI_PLAY_AREA_ #FIX_GAP_
+{
+    background-color: black;
+    width: 100%;
+    height: auto;
+}
+#AI_PLAY_AREA_ #SCENE_
+{
+    width: 100%;
+}
+#AI_PLAY_AREA_BUTTONS_
+{
+    width: 100%;
+    height: 50px;
+}
+#AI_PLAY_AREA_BUTTONS_ div
+{
+    float: left;
+    width: calc(100% / 3 - 20px);
+    text-align: center;
+}
+#AI_PLAY_AREA_ #AI_CONTROLS_
+{
+    font-family: monospace;
+    background-color: silver;
+    width: calc(100% - 2px);
+    border: 1px solid rgb(60, 60, 60);
+}
+#AI_PLAY_AREA_ #MANUAL_CONTROLS_
+{
+    width: 100%;
+    height: 100px;
+}
+#AI_PLAY_AREA_ #MANUAL_CONTROLS_ div
+{
+    float: left;
+    width: calc(50% - 20px);
+    text-align: center;
+}
+#Q_TABLE_
+{
+    grid-area: Q_TABLE_;
+    background-color: rgba(192, 192, 192, 0.75);
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+}
+#Q_TABLE_ td
+{
+    width: 25%;
+    border: 1px solid rgb(60, 60, 60);
+    text-align: center;
+}
+#Q_TABLE_ .HIGHLIGHTED_
+{
+    border: 1px solid rgba(255, 127, 127, 0.20);
+    background-color: rgba(127, 255, 127, 0.20);
+}
+#OTHER_PROJECTS_PAGE_
+{
+    background-image: url("Images/Background_Image_2_32x64.png");
+}
+.MAIN_PAGE_
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    
+}
+.TEXT_AREA_CONTAINER_
+{
+    position: relative;
+    margin: 10px;
+    background-color: rgba(192, 192, 192, 0.50);
+    display: grid;
+    gap: 10px;
+}
+.TEXT_AREA_
+{
+    background-color: rgba(192, 192, 192, 0.75);;
+    width: calc(100% - 2px);
+    border: 1px solid rgb(60, 60, 60);
+    
+}
