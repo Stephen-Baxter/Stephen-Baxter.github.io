@@ -19,7 +19,7 @@ class HOME_VARIABLES
             $("#HOME_PAGE_3D_EFECT_").height("100%");
             $("#HOME_PAGE_3D_EFECT_").width($("#HOME_PAGE_3D_EFECT_").height());
 
-            $("#HOME_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'HEAD_SHOT_ TITLE_ TITLE_ TITLE_' 'HEAD_SHOT_ . WORK_HISTORY_ WORK_HISTORY_' 'ABOUT_WEBSITE_ ABOUT_WEBSITE_ WORK_HISTORY_ WORK_HISTORY_'");
+            $("#HOME_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'HEAD_SHOT_ TITLE_ TITLE_ TITLE_' 'HEAD_SHOT_ . WORK_HISTORY_ WORK_HISTORY_' 'ABOUT_WEBSITE_ ABOUT_WEBSITE_ WORK_HISTORY_ WORK_HISTORY_' 'ABOUT_WEBSITE_ ABOUT_WEBSITE_ WORK_HISTORY_ WORK_HISTORY_' 'ABOUT_WEBSITE_ ABOUT_WEBSITE_ WORK_HISTORY_ WORK_HISTORY_'");
             $("#HOME_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "calc(25% - 7.5px) calc(25% - 7.5px) calc(25% - 7.5px) calc(25% - 7.5px)");
             $("#HOME_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto auto");
         }
