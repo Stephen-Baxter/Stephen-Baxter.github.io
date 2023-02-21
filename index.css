@@ -1,7 +1,14 @@
 p
 {
     margin: 10px;
+}
+.p1
+{
     width: clamp(25ch, 50%, 75ch);
+}
+.p2
+{
+    width: clamp(25ch, 100%, 75ch);
 }
 img
 {
@@ -145,6 +152,7 @@ footer
 {
     background: rgb(0, 0, 0);
     position: absolute;
+    overflow: auto;
 }
 #HOME_PAGE_3D_EFECT_CONTAINER_
 {
@@ -175,6 +183,17 @@ footer
 {
     background-image: url("Images/Background_Image_2_32x64.png");
     overflow: auto;
+}
+#AI_TITLE_
+{
+    grid-area: AI_TITLE_;
+    background-color: rgba(192, 192, 192, 0.75);;
+    width: calc(100% - 2px);
+    border: 1px solid rgb(60, 60, 60);
+    font-family: monospace;
+    font-size: 2.5em;
+    text-align: center;
+    
 }
 #AI_PLAY_AREA_
 {
