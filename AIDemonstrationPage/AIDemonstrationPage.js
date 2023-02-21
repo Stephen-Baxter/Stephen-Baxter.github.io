@@ -32,12 +32,12 @@ let AI_VARIABLES = function()
             $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto");
             if (this.aiIsTurnOn)
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_PLAY_AREA_ Q_TABLE_' 'QT_ QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_' 'AI_PLAY_AREA_ Q_TABLE_' 'QT_ QT_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "calc(50% - 5px) calc(50% - 5px)");
             }
             else
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'. AI_PLAY_AREA_ .' 'QT_ QT_ QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_ AI_TITLE_' '. AI_PLAY_AREA_ .' 'QT_ QT_ QT_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "calc(25% - 5px) calc(50% - 10px) calc(25% - 5px)");
             }
         }
@@ -46,12 +46,12 @@ let AI_VARIABLES = function()
             $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "100%");
             if (this.aiIsTurnOn)
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_PLAY_AREA_' 'Q_TABLE_' 'QT_'");  
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'Q_TABLE_' 'QT_'");  
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto auto");
             }
             else
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_PLAY_AREA_' 'QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'QT_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto");
             }
         }
@@ -60,40 +60,63 @@ let AI_VARIABLES = function()
     }
 }
 
+const DrawCircle = function()
+{
+
+}
+
 const Draw = function()
 {
 	aiVariables.canvas.fillStyle = 'rgb(0, 0, 0)';
 	aiVariables.canvas.fillRect(0, 0, aiVariables.canvas.width, aiVariables.canvas.height);
 
 	aiVariables.canvas.fillStyle = 'rgb(255, 127, 127)';
+    aiVariables.canvas.strokeStyle = 'rgb(127, 255, 127)';
+    aiVariables.canvas.lineWidth = 5;
 	for (let i = 0; i < 4; i++)
 	{
         let obstructionWidth = aiVariables.canvas.width / 3 / (5-i);
         let obstructionHeight = obstructionWidth;
+        //let obstructionY = aiVariables.canvas.height * i / 5 / (5-i) + Math.floor(aiVariables.canvas.width / 6) - Math.floor(obstructionWidth / 2);
+        //let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-i) * 10 - Math.floor(obstructionHeight / 2);
         let obstructionY = aiVariables.canvas.height * i / 5 / (5-i) + Math.floor(aiVariables.canvas.width / 6) - Math.floor(obstructionWidth / 2);
-        let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-i) * 10 - Math.floor(obstructionHeight / 2);
+        let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) /*- (4-i) * 10*/ - Math.floor(obstructionHeight / 2);
 		if (aiVariables.obstructionPatternUsed[i][0] === 1)
 		{
             let leftObstructionX = centerObstructionX - obstructionWidth;
-            aiVariables.canvas.fillRect (leftObstructionX, obstructionY, obstructionWidth, obstructionHeight);
+            aiVariables.canvas.beginPath();
+            aiVariables.canvas.arc(leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5, 2 * Math.PI, false);
+            aiVariables.canvas.fill();
+            aiVariables.canvas.stroke();
 		}
         if (aiVariables.obstructionPatternUsed[i][1] === 1)
 		{
-            aiVariables.canvas.fillRect (centerObstructionX, obstructionY, obstructionWidth, obstructionHeight);
+            aiVariables.canvas.beginPath();
+            aiVariables.canvas.arc(centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5,2 * Math.PI, false);
+            aiVariables.canvas.fill();
+            aiVariables.canvas.stroke();
 		}
         if (aiVariables.obstructionPatternUsed[i][2] === 1)
 		{
             let rightObstructionX = centerObstructionX + obstructionWidth;
-            aiVariables.canvas.fillRect (rightObstructionX, obstructionY, obstructionWidth, obstructionHeight);
+            aiVariables.canvas.beginPath();
+            aiVariables.canvas.arc(rightObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5,2 * Math.PI, false);
+            aiVariables.canvas.fill();
+            aiVariables.canvas.stroke();
 		}
 	}
 
 	aiVariables.canvas.fillStyle = 'rgb(127, 255, 127)';
-    let playerWidth = aiVariables.canvas.width / 3;
-    let playerHeight = playerWidth;
-    let playerX = aiVariables.canvas.width * aiVariables.playerPosition.x / 3 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidth / 2);
-    let playerY = aiVariables.canvas.height * aiVariables.playerPosition.y / 5 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerHeight / 2);
-    aiVariables.canvas.fillRect(playerX, playerY, playerWidth, playerHeight);
+    let playerWidthDouble = aiVariables.canvas.width / 6;
+    let playerX = aiVariables.canvas.width * aiVariables.playerPosition.x / 3 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
+    let playerY = aiVariables.canvas.height * aiVariables.playerPosition.y / 5 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
+    aiVariables.canvas.beginPath();
+    aiVariables.canvas.arc(playerX + playerWidthDouble, playerY + playerWidthDouble, playerWidthDouble - 2.5, Math.PI, false);
+    aiVariables.canvas.fill();
+    aiVariables.canvas.lineWidth = 5;
+    aiVariables.canvas.strokeStyle = 'rgb(255, 127, 127)';
+    aiVariables.canvas.stroke();
+    //aiVariables.canvas.fillRect(playerX, playerY, playerWidth, playerHeight);
 }
 
 const PauseToggle = function()
