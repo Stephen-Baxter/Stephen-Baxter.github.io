@@ -87,7 +87,7 @@ const OnResize = function()
 
 function main()
 {
-    FixHoverForMobile()
+    FixHoverForMobile();
     $()
 
     indexVariables = new INDEX_VARIABLES();

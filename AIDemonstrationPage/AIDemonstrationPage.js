@@ -1,6 +1,7 @@
 const KEY_CODE_LEFT_ = 0x000025
 const KEY_CODE_RIGHT_ = 0x000027
 let aiVariables = null;
+
 let AI_VARIABLES = function()
 {
     this.pause = true;
