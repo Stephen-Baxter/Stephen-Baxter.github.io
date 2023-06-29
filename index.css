@@ -18,18 +18,20 @@ img
 
 body
 {
+    background-color: rgb(60, 60, 60);
+    overflow: hidden;
     position: absolute;
     margin: 0;
     width: 100%;
     height: 100%;
 }
-h1
+header h1
 {
     margin: 0;
     text-align: center;
     font-size: 7vw;
 }
-h2
+header h2
 {
     margin: 0;
     text-align: center;
@@ -54,8 +56,21 @@ h2
     border: 10px solid rgb(255, 127, 127);
 }
 
+#LOADING_SCREEN_
+{
+    background-color: rgb(60, 60, 60);
+    color: silver;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 #LAYOUT_
 {
+    z-index: -1;
     width: 100%;
     height: 100%;
     display: inline-grid;
@@ -152,7 +167,7 @@ footer
 {
     background: rgb(0, 0, 0);
     position: absolute;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 #HOME_PAGE_3D_EFECT_CONTAINER_
 {
@@ -173,6 +188,7 @@ footer
 {
     width: 100%;
     height: 100%;
+    position: absolute;
     overflow: auto;
 }
 /*#HEAD_SHOT_
@@ -187,9 +203,6 @@ footer
 #AI_TITLE_
 {
     grid-area: AI_TITLE_;
-    background-color: rgba(192, 192, 192, 0.75);;
-    width: calc(100% - 2px);
-    border: 1px solid rgb(60, 60, 60);
     font-family: monospace;
     font-size: 2.5em;
     text-align: center;
@@ -202,13 +215,10 @@ footer
 }
 #AI_PLAY_AREA_ #SCORE_
 {
-    background-color: rgba(192, 192, 192, 0.75);
     text-align: center;
     vertical-align:bottom;
     font-family: monospace;
     font-size: 150%;
-    width: calc(100% - 2px);
-    border: 1px solid rgb(60, 60, 60);
 }
 #AI_PLAY_AREA_ #FIX_GAP_
 {
@@ -234,9 +244,6 @@ footer
 #AI_PLAY_AREA_ #AI_CONTROLS_
 {
     font-family: monospace;
-    background-color: silver;
-    width: calc(100% - 2px);
-    border: 1px solid rgb(60, 60, 60);
 }
 #AI_PLAY_AREA_ #MANUAL_CONTROLS_
 {
@@ -271,7 +278,12 @@ footer
 #OTHER_PROJECTS_PAGE_
 {
     background-image: url("Images/Background_Image_2_32x64.png");
+    overflow: auto;
 }
+/*#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_
+{
+    overflow: auto;
+}*/
 .MAIN_PAGE_
 {
     width: 100%;

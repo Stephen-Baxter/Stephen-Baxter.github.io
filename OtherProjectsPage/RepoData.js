@@ -1,13 +1,11 @@
-const repoData =
+const repoNames =
 [
-    { 
-        title: "Raycaster-For-Every-Language",
-        readme: "https://raw.githubusercontent.com/Stephen-Baxter/Raycaster-For-Every-Language/main/README.md",
-        link: ""
-    },
-    { 
-        title: "",
-        readme: "",
-        link: ""
-    },
+    "CppProjects",
+    "CsProjects",
+    "GPC2PCC",
+    "PythonProjects",
+    "Raycaster-For-Every-Language",
+    "Resources-For-Websites",
+    "ShortcutList",
+    "Stephen-Baxter.github.io",
 ]

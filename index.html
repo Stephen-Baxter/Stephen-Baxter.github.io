@@ -8,8 +8,8 @@
         <title>Stephen Baxter's Website</title>
 
         <link rel="shortcut icon" href="Images/Stephen_Baxter_Icon_256.png" type="image/x-icon">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script type = "text/javascript" src = "three.min.js"></script>
         <script type = "text/javascript" src = "JakUtilities.js"></script>
         <script type = "text/javascript" src = "index.js"></script>
@@ -25,6 +25,7 @@
 
     </head>
     <body>
+        <div id="LOADING_SCREEN_">Reading data from Github,<br>please wait.</div>
         <div id="LAYOUT_">
             <nav id="HEADER_">
                 <div id="MENU_MOBILE_DROPDOWN_BUTTON_" onclick="ToggleMenuInMobile()"><img src = "Images/Menu_dropdown_button_256.png" alt = "Menu"></div>
@@ -69,16 +70,16 @@
                 </div>
                 <div class="MAIN_PAGE_" id="AI_DEMONSTRATION_PAGE_">
                     <div class="TEXT_AREA_CONTAINER_" style="grid-area: QT_;">
-                        <div id="AI_TITLE_">Object Dodging</div>
+                        <div class="TEXT_AREA_" id="AI_TITLE_">Object Dodging</div>
                         <div id="AI_PLAY_AREA_">
-                            <div id="SCORE_"></div>
+                            <div class="TEXT_AREA_" id="SCORE_"></div>
                             <div id="FIX_GAP_"><canvas id="SCENE_" width = "300" height = "200"></canvas></div>
                             <div id="AI_PLAY_AREA_BUTTONS_">
                                 <div class="BUTTON_" onclick="PauseToggle()">Pause</div>
                                 <div class="BUTTON_" onclick="Reset()">Reset</div>
                                 <div class="BUTTON_" onclick="AIToggle()">Turn on AI</div>
                             </div>
-                            <div id="AI_CONTROLS_">
+                            <div class="TEXT_AREA_" id="AI_CONTROLS_">
                                 <div>Reward for dodging -----------: <input type="number" value="10"></div>
                                 <div>Reward for hitting -----------: <input type="number" value="-100"></div>
                                 <div>Chance of taking random action: <input type="number" value="0.98"></div>
@@ -119,12 +120,14 @@
                     </div>
                 </div>
                 <div class="MAIN_PAGE_" id="OTHER_PROJECTS_PAGE_">
-                    <div class="TEXT_AREA_CONTAINER_"><div class="TEXT_AREA_">
-                        <div id="GITHUB_REPOS_">
-                            
-                            test
-                        </div>
-                    </div></div>
+                    <div class="TEXT_AREA_CONTAINER_">
+                        <div class="TEXT_AREA_" style="grid-area: REPO_1;">1</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_2;">2</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_3;">3</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_4;">4</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_5;">5</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_6;">6</div>
+                    </div>
                 </div>
             </div></main>
             <footer>

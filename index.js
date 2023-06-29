@@ -105,4 +105,7 @@ function main()
     ChangeMainPage(indexVariables.currentPageNumber);
 
     $(window).resize(OnResize);
+
+    $("#LOADING_SCREEN_").hide();
+    ju.Con("done");
 };
