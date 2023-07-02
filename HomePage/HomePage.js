@@ -10,7 +10,6 @@ class HOME_VARIABLES
     shapeTurnDirectionX = 1;
     shapeTurnDirectionY = 1;
     Iosahedrons = [];
-    text = homePageText;
 
     OnResize = function()
     {

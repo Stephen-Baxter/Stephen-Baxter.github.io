@@ -2,43 +2,50 @@ const KEY_CODE_LEFT_ = 0x000025
 const KEY_CODE_RIGHT_ = 0x000027
 let aiVariables = null;
 
-let AI_VARIABLES = function()
+class AI_VARIABLES
 {
-    this.pause = true;
-    this.oldTimeStamp = 0;
-    this.playerPosition = {x: 1, y: 4};
-    this.timestep = 1;
-    this.canvas = null;
-    this.obstructionPatterns = [[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0]];
-    this.obstructionPatternUsed = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
-    this.numberOfDodges = 0;
-    this.numberOfHits = 0;
-    this.aiIsTurnOn = false;
-    this.numberOfStates = 3 * 7;
-    this.numberOfActions = 3;
-    let alpha = 0.0001;
-    let gamma = 0.8;
-    this.brainForAI = new JQTBrain(this.numberOfStates, this.numberOfActions, alpha, gamma);
-    this.reward = 0;
-    this.rewardForDodging = 20;
-    this.rewardForHitting = -200;
-    this.state0 = 0;
-    this.state1 = 0;
-    this.actionToTake = 0;
+    pause = true;
+    oldTimeStamp = 0;
+    playerPosition = {x: 1, y: 4};
+    timestep = 1;
+    canvas = null;
+    playerHit = false;
+    obstructionPatterns = [[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0]];
+    obstructionPatternUsed = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+    numberOfDodges = 0;
+    numberOfHits = 0;
+    aiIsTurnOn = false;
+    numberOfStates = 3 * 7;
+    numberOfActions = 3;
+    ChanceOfTakingRandomAction = 0.98;
+    alpha = 0.0001;
+    gamma = 0.8;
+    brainForAI = null;
+    reward = 0;
+    rewardForDodging = 20;
+    rewardForHitting = -200;
+    state0 = 0;
+    state1 = 0;
+    actionToTake = 0;
 
-    this.OnResize = function()
+    constructor()
+	{
+		this.brainForAI = new JQTBrain(this.numberOfStates, this.numberOfActions, this.alpha, this.gamma);
+	}
+
+    OnResize = function()
     {
         if (indexVariables.screenLayoutType == 0 || indexVariables.screenLayoutType == 2)
         { 
             $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto");
             if (this.aiIsTurnOn)
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_' 'AI_PLAY_AREA_ Q_TABLE_' 'QT_ QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_' 'AI_PLAY_AREA_ Q_TABLE_' 'Q_TABLE_DESCRIPTION_ Q_TABLE_DESCRIPTION_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "calc(50% - 5px) calc(50% - 5px)");
             }
             else
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_ AI_TITLE_' '. AI_PLAY_AREA_ .' 'QT_ QT_ QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_ AI_TITLE_ AI_TITLE_' '. AI_PLAY_AREA_ .' 'Q_TABLE_DESCRIPTION_ Q_TABLE_DESCRIPTION_ Q_TABLE_DESCRIPTION_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "calc(25% - 5px) calc(50% - 10px) calc(25% - 5px)");
             }
         }
@@ -47,18 +54,28 @@ let AI_VARIABLES = function()
             $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "100%");
             if (this.aiIsTurnOn)
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'Q_TABLE_' 'QT_'");  
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'Q_TABLE_' 'Q_TABLE_DESCRIPTION_'");  
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto auto");
             }
             else
             {
-                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'QT_'");
+                $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", "'AI_TITLE_' 'AI_PLAY_AREA_' 'Q_TABLE_DESCRIPTION_'");
                 $("#AI_DEMONSTRATION_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", "auto auto");
             }
         }
 
         //$("#FIX_GAP_").height($("#SCENE_").height()); //Fixes gap under canvas
     }
+}
+
+const GetAIParameters = function()
+{
+    let aiParameters = $("#AI_CONTROLS_ :input");
+    aiVariables.rewardForDodging = Number(aiParameters[0].value);
+    aiVariables.rewardForHitting = Number(aiParameters[1].value);
+    aiVariables.ChanceOfTakingRandomAction = Number(aiParameters[2].value);
+    aiVariables.alpha = Number(aiParameters[3].value);
+    aiVariables.gamma = Number(aiParameters[4].value);
 }
 
 const DrawCircle = function()
@@ -107,7 +124,8 @@ const Draw = function()
 		}
 	}
 
-	aiVariables.canvas.fillStyle = 'rgb(127, 255, 127)';
+    if (aiVariables.playerHit) aiVariables.canvas.fillStyle = 'rgb(255, 127, 127)';
+	else aiVariables.canvas.fillStyle = 'rgb(127, 255, 127)';
     let playerWidthDouble = aiVariables.canvas.width / 6;
     let playerX = aiVariables.canvas.width * aiVariables.playerPosition.x / 3 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
     let playerY = aiVariables.canvas.height * aiVariables.playerPosition.y / 5 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
@@ -135,7 +153,10 @@ const PauseToggle = function()
 }
 const Reset = function()
 {
+    GetAIParameters()
     aiVariables.brainForAI.ResetQTable();
+    aiVariables.brainForAI.SetAlpha(aiVariables.alpha);
+    aiVariables.brainForAI.GetAlpha(aiVariables.gamma);
     aiVariables.oldTimeStamp = 0;
     aiVariables.playerPosition = {x: 1, y: 4};
     aiVariables.timestep = 1;
@@ -223,8 +244,8 @@ const UpdateAIDemonstrationPageQTable = function()
         {
             let qTableValue = $("#Q_TABLE_ tr:nth-child(" + (i + 3) + ") td:nth-child(" + (j + 2) + ")")
             qTableValue.text("" + qTable[i][j].toExponential(2));
-            let colorPrecentage = 255 * (qTable[i][j] - smallestQTableValue) / QTableValueDefrence;
-            qTableValue.css("background-color", "rgb(" + 255 + ", " + colorPrecentage + ", " + colorPrecentage +", " + 0.5 + ")");
+            let colorPrecentage = 255 * (((qTable[i][j] - smallestQTableValue) / QTableValueDefrence)**3);
+            qTableValue.css("background-color", "rgb(" + 255 + ", " + (255-colorPrecentage) + ", " + (255-colorPrecentage) +", " + 0.5 + ")");
         }
     }
 }
@@ -279,12 +300,13 @@ const Game = function(new_time_stamp_)
             aiVariables.reward = 0;
             aiVariables.state0 = GetStateForAI();
             aiVariables.state1 = aiVariables.state0;
-            aiVariables.actionToTake = aiVariables.brainForAI.getActionNumber(aiVariables.state0, false);
+            aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, false);
             
             if (Math.floor(aiVariables.timestep % 10) == 0)
             {
                 aiVariables.state0 = GetStateForAI();
-                aiVariables.actionToTake = aiVariables.brainForAI.getActionNumber(aiVariables.state0, (1 < Math.random ()));
+                let takeRandomAction = aiVariables.ChanceOfTakingRandomAction < Math.random ();
+                aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, takeRandomAction);
                 UpdateAIPlayer();
             }
         }
@@ -296,18 +318,20 @@ const Game = function(new_time_stamp_)
                 aiVariables.numberOfHits += 1;
                 UpdateScore();
                 aiVariables.reward += aiVariables.rewardForHitting;
+                aiVariables.playerHit = true;
             }
             else
             {
                 aiVariables.numberOfDodges += 1;
                 UpdateScore();
                 aiVariables.reward += aiVariables.rewardForDodging;
+                aiVariables.playerHit = false;
             }
         }
         if (aiVariables.aiIsTurnOn)
         {
             aiVariables.state1 = GetStateForAI();
-            aiVariables.brainForAI.updateQTable(aiVariables.reward, aiVariables.state0, aiVariables.actionToTake, aiVariables.state1);
+            aiVariables.brainForAI.UpdateQTable(aiVariables.reward, aiVariables.state0, aiVariables.actionToTake, aiVariables.state1);
             UpdateAIDemonstrationPageQTable();
         }
         
@@ -317,9 +341,32 @@ const Game = function(new_time_stamp_)
     window.requestAnimationFrame(Game);
 };
 
+const DisplayCodeInHtml = function()
+{
+    $("#JakQTableBrainJQTBrain").html("JQTBrain = " + JQTBrain.toString());
+    $("#JakQTableBrainGetStateForAI").html("GetStateForAI = " + GetStateForAI.toString());
+    $("#JakQTableBrainGetActionNumber").html("GetActionNumber = " + aiVariables.brainForAI.GetActionNumber.toString());
+    $("#JakQTableBrainUpdateQTable").html("UpdateQTable = " + aiVariables.brainForAI.UpdateQTable.toString());
+    $("#JakQTableBrainResetQTable").html("ResetQTable = " + aiVariables.brainForAI.ResetQTable.toString());
+    $("#JakQTableBrainGetQTable").html("GetQTable = " + aiVariables.brainForAI.GetQTable.toString());
+    $("#JakQTableBrainSetAlpha").html("SetAlpha = " + aiVariables.brainForAI.SetAlpha.toString());
+    $("#JakQTableBrainGetAlpha").html("GetAlpha = " + aiVariables.brainForAI.GetAlpha.toString());
+    $("#JakQTableBrainSetGamma").html("SetGamma = " + aiVariables.brainForAI.SetGamma.toString());
+    $("#JakQTableBrainGetGamma").html("GetGamma = " + aiVariables.brainForAI.GetGamma.toString());
+
+    let JakQTableBrainJQTBrainHtml = $("#JakQTableBrainJQTBrain").html();
+    let JakQTableBrainJQTBrainHtmlSplit = JakQTableBrainJQTBrainHtml.split("\n");
+    for (let i = 0; i < JakQTableBrainJQTBrainHtmlSplit.length; i++) {
+        JakQTableBrainJQTBrainHtmlSplit[i] = (i + 1) + ((i < 9) ? "-- " : "- ") + JakQTableBrainJQTBrainHtmlSplit[i];
+    }
+    JakQTableBrainJQTBrainHtml = JakQTableBrainJQTBrainHtmlSplit.join("\n");
+    $("#JakQTableBrainJQTBrain").html(JakQTableBrainJQTBrainHtml);
+}
+
 const main_AIDemonstrationPage = function()
 {
     aiVariables = new AI_VARIABLES();
+    DisplayCodeInHtml();
 
     aiVariables.canvas = $("#AI_PLAY_AREA_ canvas")[0].getContext("2d"); aiVariables.canvas.width = 300; aiVariables.canvas.height = 200;
 	aiVariables.canvas.fillStyle = "black";

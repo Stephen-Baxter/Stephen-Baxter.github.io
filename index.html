@@ -14,7 +14,6 @@
         <script type = "text/javascript" src = "JakUtilities.js"></script>
         <script type = "text/javascript" src = "index.js"></script>
         <script type = "text/javascript" src = "HomePage/HomePage.js"></script>
-        <script type = "text/javascript" src = "HomePage/HomePageText.js"></script>
         <script type = "text/javascript" src = "AIDemonstrationPage/AIDemonstrationPage.js"></script>
         <script type = "text/javascript" src = "AIDemonstrationPage/JakQTableBrain.js"></script>
         <script type = "text/javascript" src = "OtherProjectsPage/OtherProjectsPage.js"></script>
@@ -25,7 +24,7 @@
 
     </head>
     <body>
-        <div id="LOADING_SCREEN_">Reading data from Github,<br>please wait.</div>
+        <div id="LOADING_SCREEN_">Reading data from Github,<br>please wait. <div class="LOADING_WHEEL_"></div></div>
         <div id="LAYOUT_">
             <nav id="HEADER_">
                 <div id="MENU_MOBILE_DROPDOWN_BUTTON_" onclick="ToggleMenuInMobile()"><img src = "Images/Menu_dropdown_button_256.png" alt = "Menu"></div>
@@ -79,13 +78,13 @@
                                 <div class="BUTTON_" onclick="Reset()">Reset</div>
                                 <div class="BUTTON_" onclick="AIToggle()">Turn on AI</div>
                             </div>
-                            <div class="TEXT_AREA_" id="AI_CONTROLS_">
-                                <div>Reward for dodging -----------: <input type="number" value="10"></div>
-                                <div>Reward for hitting -----------: <input type="number" value="-100"></div>
-                                <div>Chance of taking random action: <input type="number" value="0.98"></div>
-                                <div>Alpha ------------------------: <input type="number" value="0.0001"></div>
-                                <div>Gamma ------------------------: <input type="number" value="0.8"></div>
-                            </div>
+                            <form class="TEXT_AREA_" id="AI_CONTROLS_">
+                                <label>Reward for dodging -----------: <input type="number" value="20"></label><br>
+                                <label>Reward for hitting -----------: <input type="number" value="-200"></label><br>
+                                <label>Chance of taking random action: <input type="number" value="0.98"></label><br>
+                                <label>Alpha ------------------------: <input type="number" value="0.0001"></label><br>
+                                <label>Gamma ------------------------: <input type="number" value="0.8"></label><br>
+                            </form>
                             <div id="MANUAL_CONTROLS_">
                                 <div class="BUTTON_" onclick="TurnPlayerLeft()">LEFT</div>
                                 <div class="BUTTON_" onclick="TurnPlayerRight()">RIGHT</div>
@@ -94,39 +93,46 @@
                         <table id="Q_TABLE_">
                             <tr><td colspan="4">Q TABLE</td></tr>
                             <tr><td>State \ Action</td><td>turn left</td><td>keep going straight</td><td>turn right</td></tr>
-                            <tr><td>State 1</td><td>022</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 2</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 3</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 4</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 5</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 6</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 7</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 8</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 9</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 10</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 11</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 12</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 13</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 14</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 15</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 16</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 17</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 18</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 19</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 20</td><td>0</td><td>1</td><td>2</td></tr>
-                            <tr><td>State 21</td><td>0</td><td>1</td><td>2</td></tr>
+                            <tr><td>State 1</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 2</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 3</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 4</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 5</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 6</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 7</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 8</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 9</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 10</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 11</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 12</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 13</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 14</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 15</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 16</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 17</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 18</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 19</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 20</td><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>State 21</td><td>0</td><td>0</td><td>0</td></tr>
                         </table>
-                        <div class="TEXT_AREA_" style="grid-area: QT_;">test</div>
+                        <div class="TEXT_AREA_" id="QTABLE_DESCRIPTION_" style="grid-area: Q_TABLE_DESCRIPTION_;">
+                            <pre><code id="JakQTableBrainJQTBrain"></code></pre>
+                            <pre><code id="JakQTableBrainGetStateForAI"></code></pre>
+                            <pre><code id="JakQTableBrainGetActionNumber"></code></pre>
+                            <pre><code id="JakQTableBrainUpdateQTable"></code></pre>
+                            <pre><code id="JakQTableBrainResetQTable"></code></pre>
+                            <pre><code id="JakQTableBrainGetQTable"></code></pre>
+                            <pre><code id="JakQTableBrainSetAlpha"></code></pre>
+                            <pre><code id="JakQTableBrainGetAlpha"></code></pre>
+                            <pre><code id="JakQTableBrainSetGamma"></code></pre>
+                            <pre><code id="JakQTableBrainGetGamma"></code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="MAIN_PAGE_" id="OTHER_PROJECTS_PAGE_">
                     <div class="TEXT_AREA_CONTAINER_">
-                        <div class="TEXT_AREA_" style="grid-area: REPO_1;">1</div>
-                        <div class="TEXT_AREA_" style="grid-area: REPO_2;">2</div>
-                        <div class="TEXT_AREA_" style="grid-area: REPO_3;">3</div>
-                        <div class="TEXT_AREA_" style="grid-area: REPO_4;">4</div>
-                        <div class="TEXT_AREA_" style="grid-area: REPO_5;">5</div>
-                        <div class="TEXT_AREA_" style="grid-area: REPO_6;">6</div>
+                        <div class="TEXT_AREA_" style="grid-area: REPO_SEARCH_BAR_;"><h1>Project List</h1><form><label>Please type the name of repo: <input type="text" oninput=Search_Repos(this.value)></label></form></div>
+                        
                     </div>
                 </div>
             </div></main>

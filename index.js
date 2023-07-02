@@ -2,6 +2,11 @@ let indexVariables = null;
 class INDEX_VARIABLES
 {
     currentPageNumber = 0;
+    dictionary = [
+        "HOME_PAGE_TEXT_AREA_",
+        "AI_DEMONSTRATION_PAGE_",
+        "OTHER_PROJECTS_PAGE_"
+    ];
     degreesTurned = 0;
     menuInMobileToggleOn = false;
     screenLayoutType = 0;
@@ -46,6 +51,7 @@ const ChangeMainPage = function(page_number_)
             indexVariables.menuInMobileToggleOn = !indexVariables.menuInMobileToggleOn;
         }
     }
+    $("#" + indexVariables.dictionary[indexVariables.currentPageNumber]).scrollTop(0);
 }
 
 const ToggleMenuInMobile = function()
@@ -88,7 +94,6 @@ const OnResize = function()
 function main()
 {
     FixHoverForMobile();
-    $()
 
     indexVariables = new INDEX_VARIABLES();
 
