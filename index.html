@@ -16,11 +16,14 @@
         <script type = "text/javascript" src = "HomePage/HomePage.js"></script>
         <script type = "text/javascript" src = "AIDemonstrationPage/AIDemonstrationPage.js"></script>
         <script type = "text/javascript" src = "AIDemonstrationPage/JakQTableBrain.js"></script>
+        <script type = "text/javascript" src = "ProjectDemonstrationsPage/ProjectDemonstrationsPage.js"></script>
+        <script type = "text/javascript" src = "ProjectDemonstrationsPage/FlightSimulator.js"></script>
+        <script type = "text/javascript" src = "ProjectDemonstrationsPage/Raycaster.js"></script>
         <script type = "text/javascript" src = "OtherProjectsPage/OtherProjectsPage.js"></script>
         <script type = "text/javascript" src = "OtherProjectsPage/RepoData.js"></script>
     	<link href = "index.css" rel = "stylesheet" />
 
-        <script>window.onload = main;</script>
+        <script>let isSpiteSheetLoaded = true; window.onload = main;</script>
 
     </head>
     <body>
@@ -35,7 +38,8 @@
             <nav id="MENU_">
                 <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(0);" href="#HOME_PAGE_"><img src = "Images/H.png" alt = "H">Home</a>
                 <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(1);" href="#AI_DEMONSTRATION_PAGE_"><img src = "Images/A.png" alt = "A">AI Demonstration</a>
-                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(2);" href="#OTHER_PROJECTS_PAGE_"><img src = "Images/P.png" alt = "P">Project list</a>
+                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(2);" href="#PROJECT_DEMONSTRATIONS_PAGE_"><img src = "Images/P.png" alt = "P">Project Demonstrations</a>
+                <a class="BUTTON_ MENU_BUTTON_" onclick="ChangeMainPage(3);" href="#OTHER_PROJECTS_PAGE_"><img src = "Images/P.png" alt = "P">Project list</a>
             </nav>
             <main><div id="MAIN_">
                 <div class="MAIN_PAGE_" id="HOME_PAGE_">
@@ -124,8 +128,35 @@
                             <pre><code id="JakQTableBrainGetQTable"></code></pre>
                             <pre><code id="JakQTableBrainSetAlpha"></code></pre>
                             <pre><code id="JakQTableBrainGetAlpha"></code></pre>
-                            <pre><code id="JakQTableBrainSetGamma"></code></pre>
-                            <pre><code id="JakQTableBrainGetGamma"></code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="MAIN_PAGE_" id="PROJECT_DEMONSTRATIONS_PAGE_">
+                    <div class="TEXT_AREA_CONTAINER_">
+                        <div id="PROJECT_DEMONSTRATION_LIST_">
+                            <div class="BUTTON_" onclick="ChangeDemonstration(0)">Flight Simulator</div>
+                            <div class="BUTTON_" onclick="ChangeDemonstration(1)">Raycaster</div>
+                        </div>
+                        <div id="PROJECT_DEMONSTRATION_PLAY_AREA_">
+                            <canvas id="SCREEN_" style="grid-area: PS_;"></canvas>
+                            <div id="LEFT_CONTROLS_">
+                                <div id="FOUR_BUTTON_OUT_">
+                                    <div id="FOUR_BUTTON_IN_A_" style="left: 66.67%; top: 33.33%;">A</div>
+                                    <div id="FOUR_BUTTON_IN_B_" style="left: 33.33%; top: 33.33%;">B</div>
+                                    <div id="FOUR_BUTTON_IN_X_" style="left: 33.33%; top: -66.67%;">X</div>
+                                    <div id="FOUR_BUTTON_IN_Y_" style="left: 0%; top: -66.67%;">Y</div>
+                                </div>
+                                <div id="SELECT_">SELECT</div>
+                            </div>
+                            <div id="RIGHT_CONTROLS_">
+                                <div id="JOY_STICK_OUT_"><div id="JOY_STICK_IN_">JOY<br>STICK</div></div>
+                                <div id="START_">START</div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="TEXT_AREA_">
+                            <div id="INSTRUCTIONS"></div>
                         </div>
                     </div>
                 </div>

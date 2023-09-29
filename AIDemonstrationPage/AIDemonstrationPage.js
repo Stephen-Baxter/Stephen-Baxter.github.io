@@ -1,16 +1,35 @@
-const KEY_CODE_LEFT_ = 0x000025
-const KEY_CODE_RIGHT_ = 0x000027
 let aiVariables = null;
 
 class AI_VARIABLES
 {
     pause = true;
-    oldTimeStamp = 0;
     playerPosition = {x: 1, y: 4};
-    timestep = 1;
     canvas = null;
     playerHit = false;
-    obstructionPatterns = [[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0]];
+    obstructionPatterns = [[0,0,1],[0,0,2],[0,0,3],
+    [0,1,0],[0,1,1],[0,1,2],
+    [0,1,3],[0,2,0],[0,2,1],
+    [0,2,2],[0,2,3],[0,3,0],
+    [0,3,1],[0,3,2],[0,3,3],
+    [1,0,0],[1,0,1],[1,0,2],
+    [1,0,3],[1,1,0],[1,2,0],
+    [1,3,0],[2,0,0],[2,0,1],
+    [2,0,2],[2,0,3],[2,1,0],
+    [2,2,0],[2,3,0],[3,0,0],
+    [3,0,1],[3,0,2],[3,0,3],
+    [3,1,0],[3,2,0],[3,3,0]];
+    leftSprites = [new jge.SPRITE(indexVariables.spriteSheet, 32, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 80, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 80, 16, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 32, 16, 16)];
+    rightSprites = [new jge.SPRITE(indexVariables.spriteSheet, 16, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 64, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 64, 16, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 16, 16, 16)];
+    centerSprites = [new jge.SPRITE(indexVariables.spriteSheet, 0, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 48, 0, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 48, 16, 16),
+        new jge.SPRITE(indexVariables.spriteSheet, 0, 16, 16)];
     obstructionPatternUsed = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
     numberOfDodges = 0;
     numberOfHits = 0;
@@ -78,64 +97,104 @@ const GetAIParameters = function()
     aiVariables.gamma = Number(aiParameters[4].value);
 }
 
-const DrawCircle = function()
-{
-
-}
-
 const Draw = function()
 {
-	aiVariables.canvas.fillStyle = 'rgb(0, 0, 0)';
-	aiVariables.canvas.fillRect(0, 0, aiVariables.canvas.width, aiVariables.canvas.height);
+	jge.ClearScreen(aiVariables.canvas, 'black')
 
-	aiVariables.canvas.fillStyle = 'rgb(255, 127, 127)';
-    aiVariables.canvas.strokeStyle = 'rgb(127, 255, 127)';
-    aiVariables.canvas.lineWidth = 5;
-	for (let i = 0; i < 4; i++)
+    let lx = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-3) * 10 - Math.floor((aiVariables.canvas.width / 3 / (5-3)) / 2) - aiVariables.canvas.width / 3 / (5-3);
+    let lx12 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-3) * 10 + Math.floor((aiVariables.canvas.width / 3 / (5-3)) / 2) + aiVariables.canvas.width / 3 / (5-3);
+    let ly = aiVariables.canvas.height * 3 / 5 / (5-3) + Math.floor(aiVariables.canvas.width / 6) - Math.floor((aiVariables.canvas.width / 3 / (5-3)) / 2)+aiVariables.canvas.width / 3 / (5-3)/2;
+    let lx2 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-2) * 10 - Math.floor((aiVariables.canvas.width / 3 / (5-2)) / 2) - aiVariables.canvas.width / 3 / (5-2);
+    let lx22 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-2) * 10 + Math.floor((aiVariables.canvas.width / 3 / (5-2)) / 2) + aiVariables.canvas.width / 3 / (5-2);
+    let ly2 = aiVariables.canvas.height * 2 / 5 / (5-3) + Math.floor(aiVariables.canvas.width / 6) - Math.floor((aiVariables.canvas.width / 3 / (5-2)) / 2);//+aiVariables.canvas.width / 3 / (5-2)/2;
+    let lx3 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-1) * 10 - Math.floor((aiVariables.canvas.width / 3 / (5-1)) / 2) - aiVariables.canvas.width / 3 / (5-1);
+    let lx32 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-1) * 10 + Math.floor((aiVariables.canvas.width / 3 / (5-1)) / 2) + aiVariables.canvas.width / 3 / (5-1);
+    let ly3 = aiVariables.canvas.height * 1 / 5 / (5-3) + Math.floor(aiVariables.canvas.width / 6) - Math.floor((aiVariables.canvas.width / 3 / (5-1)) / 2);//+aiVariables.canvas.width / 3 / (5-1)/2;
+    let lx4 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-0) * 10 - Math.floor((aiVariables.canvas.width / 3 / (5-0)) / 2) - aiVariables.canvas.width / 3 / (5-0);
+    let lx42 = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-0) * 10 + Math.floor((aiVariables.canvas.width / 3 / (5-0)) / 2) + aiVariables.canvas.width / 3 / (5-0);
+    let ly4 = aiVariables.canvas.height * 0 / 5 / (5-3) + Math.floor(aiVariables.canvas.width / 6) - Math.floor((aiVariables.canvas.width / 3 / (5-0)) / 2)+aiVariables.canvas.width / 3 / (5-0)/2;
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [0, aiVariables.canvas.canvas.height], [lx, ly]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [aiVariables.canvas.canvas.width, aiVariables.canvas.canvas.height], [lx12, ly]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx, ly], [lx2, ly2]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx12, ly], [lx22, ly2]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx2, ly2], [lx3, ly3]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx22, ly2], [lx32, ly3]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx3, ly3], [lx4, ly4]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [lx32, ly3], [lx42, ly4]);
+    jge.DrawLine(aiVariables.canvas, 'rgb(127, 255, 127)', [0, ly4], [aiVariables.canvas.width, ly4]);
+
+    for (let i = 0; i < 4; i++)
 	{
         let obstructionWidth = aiVariables.canvas.width / 3 / (5-i);
         let obstructionHeight = obstructionWidth;
-        //let obstructionY = aiVariables.canvas.height * i / 5 / (5-i) + Math.floor(aiVariables.canvas.width / 6) - Math.floor(obstructionWidth / 2);
-        //let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-i) * 10 - Math.floor(obstructionHeight / 2);
         let obstructionY = aiVariables.canvas.height * i / 5 / (5-i) + Math.floor(aiVariables.canvas.width / 6) - Math.floor(obstructionWidth / 2);
-        let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) /*- (4-i) * 10*/ - Math.floor(obstructionHeight / 2);
-		if (aiVariables.obstructionPatternUsed[i][0] === 1)
+        let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) - (4-i) * 10 - Math.floor(obstructionHeight / 2);
+        //let centerObstructionX = aiVariables.canvas.width * 1 / 3 + Math.floor(aiVariables.canvas.width /6) /*- (4-i) * 10*/ - Math.floor(obstructionHeight / 2);
+        if (aiVariables.obstructionPatternUsed[i][0] > 0)
 		{
-            let leftObstructionX = centerObstructionX - obstructionWidth;
-            aiVariables.canvas.beginPath();
-            aiVariables.canvas.arc(leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5, 2 * Math.PI, false);
-            aiVariables.canvas.fill();
-            aiVariables.canvas.stroke();
+            if (indexVariables.spriteSheet.ready)
+            {
+                let leftObstructionX = centerObstructionX - obstructionWidth;
+                if (i < 2) aiVariables.rightSprites[aiVariables.obstructionPatternUsed[i][0]-1].Draw(aiVariables.canvas, leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+                else if (i === 2) aiVariables.centerSprites[aiVariables.obstructionPatternUsed[i][0]-1].Draw(aiVariables.canvas, leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+                else aiVariables.leftSprites[aiVariables.obstructionPatternUsed[i][0]-1].Draw(aiVariables.canvas, leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+            }
+            else
+            {
+                let leftObstructionX = centerObstructionX - obstructionWidth;
+                jge.FillCircle(aiVariables.canvas, 'rgb(255, 127, 127)', [leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5);
+                jge.DrawCircle(aiVariables.canvas, 'rgb(127, 255, 127)', [leftObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5, (obstructionWidth / 2 - 2.5)/10);
+            }
 		}
-        if (aiVariables.obstructionPatternUsed[i][1] === 1)
+        if (aiVariables.obstructionPatternUsed[i][1] > 0)
+	    {
+            if (indexVariables.spriteSheet.ready)
+            {
+                if (i < 2) aiVariables.rightSprites[aiVariables.obstructionPatternUsed[i][1]-1].Draw(aiVariables.canvas, centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+                else aiVariables.centerSprites[aiVariables.obstructionPatternUsed[i][1]-1].Draw(aiVariables.canvas, centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+            }
+            else
+            {
+                jge.FillCircle(aiVariables.canvas, 'rgb(255, 127, 127)', [centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5);
+                jge.DrawCircle(aiVariables.canvas, 'rgb(127, 255, 127)', [centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5, (obstructionWidth / 2 - 2.5)/10);
+            }
+        }
+        if (aiVariables.obstructionPatternUsed[i][2] > 0)
 		{
-            aiVariables.canvas.beginPath();
-            aiVariables.canvas.arc(centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5,2 * Math.PI, false);
-            aiVariables.canvas.fill();
-            aiVariables.canvas.stroke();
-		}
-        if (aiVariables.obstructionPatternUsed[i][2] === 1)
-		{
-            let rightObstructionX = centerObstructionX + obstructionWidth;
-            aiVariables.canvas.beginPath();
-            aiVariables.canvas.arc(rightObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth / 2 - 2.5,2 * Math.PI, false);
-            aiVariables.canvas.fill();
-            aiVariables.canvas.stroke();
-		}
+            if (indexVariables.spriteSheet.ready)
+            {
+                let rightObstructionX = centerObstructionX + obstructionWidth;
+                aiVariables.rightSprites[aiVariables.obstructionPatternUsed[i][2]-1].Draw(aiVariables.canvas, rightObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+            }
+            else
+            {
+                let rightObstructionX = centerObstructionX + obstructionWidth;
+                jge.FillCircle(aiVariables.canvas, 'rgb(255, 127, 127)', [rightObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5);
+                jge.DrawCircle(aiVariables.canvas, 'rgb(127, 255, 127)', [rightObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2], obstructionWidth / 2 - 2.5, (obstructionWidth / 2 - 2.5)/10);
+            }
+        }
 	}
 
-    if (aiVariables.playerHit) aiVariables.canvas.fillStyle = 'rgb(255, 127, 127)';
-	else aiVariables.canvas.fillStyle = 'rgb(127, 255, 127)';
+    let fillColor = '';
+    if (aiVariables.playerHit) fillColor = 'rgb(255, 127, 127)';
+	else fillColor = 'rgb(127, 255, 127)';
     let playerWidthDouble = aiVariables.canvas.width / 6;
     let playerX = aiVariables.canvas.width * aiVariables.playerPosition.x / 3 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
     let playerY = aiVariables.canvas.height * aiVariables.playerPosition.y / 5 + Math.floor(aiVariables.canvas.width /6) - Math.floor(playerWidthDouble);
-    aiVariables.canvas.beginPath();
-    aiVariables.canvas.arc(playerX + playerWidthDouble, playerY + playerWidthDouble, playerWidthDouble - 2.5, Math.PI, false);
-    aiVariables.canvas.fill();
-    aiVariables.canvas.lineWidth = 5;
-    aiVariables.canvas.strokeStyle = 'rgb(255, 127, 127)';
-    aiVariables.canvas.stroke();
-    //aiVariables.canvas.fillRect(playerX, playerY, playerWidth, playerHeight);
+    if (indexVariables.spriteSheet.ready)
+    {
+        switch (aiVariables.playerPosition.x) {
+            
+            case 0: aiVariables.leftSprites[3].Draw(aiVariables.canvas, playerX + playerWidthDouble, playerY + playerWidthDouble, playerWidthDouble*2); break;
+            case 1: aiVariables.centerSprites[3].Draw(aiVariables.canvas, playerX + playerWidthDouble, playerY + playerWidthDouble, playerWidthDouble*2); break;
+            case 2: aiVariables.rightSprites[3].Draw(aiVariables.canvas, playerX + playerWidthDouble, playerY + playerWidthDouble, playerWidthDouble*2); break;
+        }
+    }
+    else
+    {
+        jge.FillCircle(aiVariables.canvas, fillColor, [playerX + playerWidthDouble, playerY + playerWidthDouble], playerWidthDouble - 2.5)
+        jge.DrawCircle(aiVariables.canvas, 'rgb(255, 127, 127)', [playerX + playerWidthDouble, playerY + playerWidthDouble], playerWidthDouble - 2.5, (playerWidthDouble - 2.5)/10)
+    }
 }
 
 const PauseToggle = function()
@@ -155,8 +214,8 @@ const Reset = function()
 {
     GetAIParameters()
     aiVariables.brainForAI.ResetQTable();
-    aiVariables.brainForAI.SetAlpha(aiVariables.alpha);
-    aiVariables.brainForAI.GetAlpha(aiVariables.gamma);
+    aiVariables.brainForAI.alpha = aiVariables.alpha;
+    aiVariables.brainForAI.gamma = aiVariables.gamma;
     aiVariables.oldTimeStamp = 0;
     aiVariables.playerPosition = {x: 1, y: 4};
     aiVariables.timestep = 1;
@@ -192,7 +251,7 @@ const AIToggle = function()
 
 const GetStateForAI = function()
 {
-    let lastobstructionPatternUsed = aiVariables.obstructionPatternUsed[3].toString();
+    let lastobstructionPatternUsed = aiVariables.obstructionPatternUsed[3].toString().replace(/2/g, '1').replace(/3/g, '1');
     if     (lastobstructionPatternUsed === "0,0,0" && aiVariables.playerPosition.x === 0) return  0;
     else if(lastobstructionPatternUsed === "0,0,1" && aiVariables.playerPosition.x === 0) return  1;
     else if(lastobstructionPatternUsed === "0,1,0" && aiVariables.playerPosition.x === 0) return  2;
@@ -217,7 +276,7 @@ const GetStateForAI = function()
 }
 const UpdateAIDemonstrationPageQTable = function()
 {
-    let qTable = aiVariables.brainForAI.GetQTable();
+    let qTable = aiVariables.brainForAI.qTable;
     
 
     let smallestQTableValueOnStates = [];
@@ -284,17 +343,17 @@ const UpdateObstructions = function()
 {
     let lastRow = aiVariables.obstructionPatternUsed[3];
     for (let i = 3; i > 0; i--) aiVariables.obstructionPatternUsed[i] = aiVariables.obstructionPatternUsed[i - 1];
-	aiVariables.obstructionPatternUsed[0] = aiVariables.obstructionPatterns[Math.floor(Math.random () * 6)]
+	aiVariables.obstructionPatternUsed[0] = aiVariables.obstructionPatterns[Math.floor(Math.random () * aiVariables.obstructionPatterns.length)]
 	Draw();
     return lastRow;
 }
-const Game = function(new_time_stamp_)
+const OnAIFrameStart = function() {
+    //jge.l(aiVariables.leftSprites[3]);
+}
+const OnAIFrameUpdate = function(time_step_)
 {
     if (indexVariables.currentPageNumber === 1 && !aiVariables.pause)
     {
-        let elapsedTime = new_time_stamp_ - aiVariables.oldTimeStamp;
-        aiVariables.oldTimeStamp = new_time_stamp_;
-        
         if (aiVariables.aiIsTurnOn)
         {
             aiVariables.reward = 0;
@@ -302,7 +361,7 @@ const Game = function(new_time_stamp_)
             aiVariables.state1 = aiVariables.state0;
             aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, false);
             
-            if (Math.floor(aiVariables.timestep % 10) == 0)
+            if (Math.floor(time_step_ % 10) == 0)
             {
                 aiVariables.state0 = GetStateForAI();
                 let takeRandomAction = aiVariables.ChanceOfTakingRandomAction < Math.random ();
@@ -310,8 +369,9 @@ const Game = function(new_time_stamp_)
                 UpdateAIPlayer();
             }
         }
-        if (Math.floor(aiVariables.timestep % 30) == 0)
+        if (Math.floor(time_step_ % 30) == 0)
         {
+            
             let lastRow = UpdateObstructions();
             if (lastRow[aiVariables.playerPosition.x] === 1)
             {
@@ -334,13 +394,8 @@ const Game = function(new_time_stamp_)
             aiVariables.brainForAI.UpdateQTable(aiVariables.reward, aiVariables.state0, aiVariables.actionToTake, aiVariables.state1);
             UpdateAIDemonstrationPageQTable();
         }
-        
-        aiVariables.timestep += Math.min(elapsedTime * 60 / 1000, 1);
-        if (aiVariables.timestep > 60) aiVariables.timestep = 1;
     }
-    window.requestAnimationFrame(Game);
-};
-
+}
 const DisplayCodeInHtml = function()
 {
     $("#JakQTableBrainJQTBrain").html("JQTBrain = " + JQTBrain.toString());
@@ -348,11 +403,9 @@ const DisplayCodeInHtml = function()
     $("#JakQTableBrainGetActionNumber").html("GetActionNumber = " + aiVariables.brainForAI.GetActionNumber.toString());
     $("#JakQTableBrainUpdateQTable").html("UpdateQTable = " + aiVariables.brainForAI.UpdateQTable.toString());
     $("#JakQTableBrainResetQTable").html("ResetQTable = " + aiVariables.brainForAI.ResetQTable.toString());
-    $("#JakQTableBrainGetQTable").html("GetQTable = " + aiVariables.brainForAI.GetQTable.toString());
-    $("#JakQTableBrainSetAlpha").html("SetAlpha = " + aiVariables.brainForAI.SetAlpha.toString());
-    $("#JakQTableBrainGetAlpha").html("GetAlpha = " + aiVariables.brainForAI.GetAlpha.toString());
-    $("#JakQTableBrainSetGamma").html("SetGamma = " + aiVariables.brainForAI.SetGamma.toString());
-    $("#JakQTableBrainGetGamma").html("GetGamma = " + aiVariables.brainForAI.GetGamma.toString());
+    $("#JakQTableBrainGetQTable").html("qTable");
+    $("#JakQTableBrainSetAlpha").html("alpha");
+    $("#JakQTableBrainGetAlpha").html("gamma");
 
     let JakQTableBrainJQTBrainHtml = $("#JakQTableBrainJQTBrain").html();
     let JakQTableBrainJQTBrainHtmlSplit = JakQTableBrainJQTBrainHtml.split("\n");
@@ -368,12 +421,12 @@ const main_AIDemonstrationPage = function()
     aiVariables = new AI_VARIABLES();
     DisplayCodeInHtml();
 
-    aiVariables.canvas = $("#AI_PLAY_AREA_ canvas")[0].getContext("2d"); aiVariables.canvas.width = 300; aiVariables.canvas.height = 200;
-	aiVariables.canvas.fillStyle = "black";
-	aiVariables.canvas.fillRect (0, 0, aiVariables.canvas.width, aiVariables.canvas.height);
+    aiVariables.canvas = $("#AI_PLAY_AREA_ canvas")[0].getContext("2d", { alpha: false }); aiVariables.canvas.width = 300; aiVariables.canvas.height = 200;
+	jge.ClearScreen(aiVariables.canvas, 'black')
 
     PauseToggle();
     AIToggle();
     window.addEventListener("keydown", UpdatePlayer, false);
-    window.requestAnimationFrame(Game);
+    //window.requestAnimationFrame(Game);
+    //framLoop = new jge.RUN_FRAME_LOOP(OnAIFrameStart, OnAIFrameUpdate);
 }

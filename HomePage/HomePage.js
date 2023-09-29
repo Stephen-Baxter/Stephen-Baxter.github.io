@@ -6,10 +6,18 @@ class HOME_VARIABLES
     renderer = null;
     homePageXOffset = 0;
     homePageYOffset = 0;
-    shapeTurnspeed = 0.005;
+    shapeTurnSpeed = 0.5;
     shapeTurnDirectionX = 1;
     shapeTurnDirectionY = 1;
     Iosahedrons = [];
+
+    constructor()
+    {
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({canvas: $("#HOME_PAGE_3D_EFECT_")[0]});
+        this.renderer.setSize($("#HOME_PAGE_3D_EFECT_").width(), $("#HOME_PAGE_3D_EFECT_").height());
+    }
 
     OnResize = function()
     {
@@ -68,13 +76,8 @@ const CreateIosahedron = function(color_, size_, is_wireframe_, detail_)
     }
 }
 
-const CreateScene = function()
+const OnHomeFrameStart = function()
 {
-    homeVariables.scene = new THREE.Scene();
-    homeVariables.camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
-    homeVariables.renderer = new THREE.WebGLRenderer({canvas: $("#HOME_PAGE_3D_EFECT_")[0]});
-    homeVariables.renderer.setSize($("#HOME_PAGE_3D_EFECT_").width(), $("#HOME_PAGE_3D_EFECT_").height());
-
     let light = new THREE.PointLight( 0xffffff, 1, 0, 0);
     light.position.set(0,0,0);
     light.castShadow = true;
@@ -94,31 +97,26 @@ const CreateScene = function()
     light.position.set(0,0,1.367);
     homeVariables.camera.position.set(0,0,1.367);
 }
-
-const RunScene = function()
+const OnHomeFrameUpdate = function(delta_time_)
 {
     if (indexVariables.currentPageNumber === 0)
     {
-        homeVariables.Iosahedrons[0].rotation.x -= homeVariables.shapeTurnDirectionY * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[0].rotation.y += homeVariables.shapeTurnDirectionX * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[1].rotation.x += homeVariables.shapeTurnDirectionY * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[1].rotation.y -= homeVariables.shapeTurnDirectionX * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[2].rotation.x += homeVariables.shapeTurnDirectionY * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[2].rotation.y += homeVariables.shapeTurnDirectionX * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[3].rotation.x -= homeVariables.shapeTurnDirectionY * homeVariables.shapeTurnspeed;
-        homeVariables.Iosahedrons[3].rotation.y -= homeVariables.shapeTurnDirectionX * homeVariables.shapeTurnspeed;
+        let turnSpeed = homeVariables.shapeTurnSpeed * delta_time_;
+        homeVariables.Iosahedrons[0].rotation.x -= homeVariables.shapeTurnDirectionY * turnSpeed;
+        homeVariables.Iosahedrons[0].rotation.y += homeVariables.shapeTurnDirectionX * turnSpeed;
+        homeVariables.Iosahedrons[1].rotation.x += homeVariables.shapeTurnDirectionY * turnSpeed;
+        homeVariables.Iosahedrons[1].rotation.y -= homeVariables.shapeTurnDirectionX * turnSpeed;
+        homeVariables.Iosahedrons[2].rotation.x += homeVariables.shapeTurnDirectionY * turnSpeed;
+        homeVariables.Iosahedrons[2].rotation.y += homeVariables.shapeTurnDirectionX * turnSpeed;
+        homeVariables.Iosahedrons[3].rotation.x -= homeVariables.shapeTurnDirectionY * turnSpeed;
+        homeVariables.Iosahedrons[3].rotation.y -= homeVariables.shapeTurnDirectionX * turnSpeed;
         homeVariables.renderer.render(homeVariables.scene, homeVariables.camera);
     }
-    requestAnimationFrame(RunScene);
 }
-
 const main_HomePage = function()
 {
     homeVariables = new HOME_VARIABLES();
     //$("#TITLE_").html(homeVariables.text.title);
-
-    CreateScene();
-    requestAnimationFrame(RunScene);
 
     $("#MAIN_").mousemove(UpdateshapeTurnDirectionOnHomePage);
 }

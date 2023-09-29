@@ -1,15 +1,24 @@
 let indexVariables = null;
 class INDEX_VARIABLES
 {
-    currentPageNumber = 0;
-    dictionary = [
-        "HOME_PAGE_TEXT_AREA_",
-        "AI_DEMONSTRATION_PAGE_",
-        "OTHER_PROJECTS_PAGE_"
-    ];
-    degreesTurned = 0;
-    menuInMobileToggleOn = false;
-    screenLayoutType = 0;
+    constructor()
+    {
+        this.currentPageNumber = 0;
+        this.dictionary = [
+            "HOME_PAGE_TEXT_AREA_",
+            "AI_DEMONSTRATION_PAGE_",
+            "PROJECT_DEMONSTRATIONS_PAGE_",
+            "OTHER_PROJECTS_PAGE_"
+        ];
+        this.degreesTurned = 0;
+        this.menuInMobileToggleOn = false;
+        this.screenLayoutType = 0;
+        this.keyBuffer = new jge.input.KEY_BUFFER();
+        this.spriteSheet = new Image(); //$(SPRITE_SHEET_)[0];
+        this.spriteSheet.src = "Images/Sprite_Sheet.png";
+        this.spriteSheet.ready = false;
+        this.spriteSheet.onload = function() { this.ready = true; }
+    }
 };
 
 const FixHoverForMobile = function()
@@ -89,6 +98,7 @@ const OnResize = function()
 
     homeVariables.OnResize();
     aiVariables.OnResize();
+    projectDemosVariables.OnResize();
 };
 
 function main()
@@ -99,11 +109,30 @@ function main()
 
     main_HomePage();
     main_AIDemonstrationPage();
-    main_OtherProjectsPage();
+    main_ProjectDemonstrationsPage();
+    //main_OtherProjectsPage();
     OnResize();
+    const OnFramesStart = function()
+    {
+        OnHomeFrameStart();
+        OnAIFrameStart();
+        OnProjectDemonstrationsFrameStart();
+    }
+    const OnFramesUpdate = function(delta_time_, time_step_)
+    {
+        switch (indexVariables.currentPageNumber)
+        {
+            case 0: OnHomeFrameUpdate(delta_time_); break;
+            case 1: OnAIFrameUpdate(time_step_); break;
+            case 2: OnProjectDemonstrationsFrameUpdate(delta_time_); break;
+            default: break;
+        }
+    }
+    framLoop = new jge.RUN_FRAME_LOOP(OnFramesStart, OnFramesUpdate);
     let urlAtLoad = ""+ window.location.href;
     if (urlAtLoad.endsWith('#AI_DEMONSTRATION_PAGE_')) indexVariables.currentPageNumber = 1;
-    else if (urlAtLoad.endsWith('#OTHER_PROJECTS_PAGE_')) indexVariables.currentPageNumber = 2;
+    else if (urlAtLoad.endsWith('#PROJECT_DEMONSTRATIONS_PAGE_')) indexVariables.currentPageNumber = 2;
+    else if (urlAtLoad.endsWith('#OTHER_PROJECTS_PAGE_')) indexVariables.currentPageNumber = 3;
     else indexVariables.currentPageNumber = 0;
     $("#MENU_").children().eq(indexVariables.currentPageNumber).addClass("SELECTED_");
     $("#MENU_").children().eq(indexVariables.currentPageNumber).children().eq(0).css("transform", "rotateZ(90deg)");
@@ -112,5 +141,5 @@ function main()
     $(window).resize(OnResize);
 
     $("#LOADING_SCREEN_").hide();
-    ju.Con("done");
+    jge.l("done");
 };
