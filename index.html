@@ -27,7 +27,7 @@
 
     </head>
     <body>
-        <div id="LOADING_SCREEN_">Reading data from Github,<br>please wait. <div class="LOADING_WHEEL_"></div></div>
+        <div id="LOADING_SCREEN_" class="CENTER_">Reading data from Github,<br>please wait. <div class="LOADING_WHEEL_"></div></div>
         <div id="LAYOUT_">
             <nav id="HEADER_">
                 <div id="MENU_MOBILE_DROPDOWN_BUTTON_" onclick="ToggleMenuInMobile()"><img src = "Images/Menu_dropdown_button_256.png" alt = "Menu"></div>
@@ -48,8 +48,6 @@
                         <img class="TEXT_AREA_" id="HEAD_SHOT_" style="grid-area: HEAD_SHOT_;" src = "Images/Head_Shot_512.png" alt = "Head Shot">
                         <div class="TEXT_AREA_" id="TITLE_" style="grid-area: TITLE_;">
                             <header><h1>Stephen Baxter's<br>Website</h1></header>
-                            
-                            
                         </div>
                         <div class="TEXT_AREA_" id="WORK_HISTORY_" style="grid-area: WORK_HISTORY_;">
                             <header><h2>Work History</h2></header>
@@ -64,93 +62,124 @@
                             <p class=".p2"><b>Development Tools:</b> JQuery, Laserfiche, Visual Studio Code, Visual Studio 2017-2022, Dev-C++</p>
                             <p class=".p2"><b>Server Software:</b> MySQL, SQL, ASP.NET</p>
                             <p class=".p2"><b>Productivity Software:</b> Microsoft Word, Excel, PowerPoint, LibreOffice, Google Workspace</p>
+                            <header><h2>Education</h2></header>
+                            <p class=".p2"><b>Master of Science in Computer Science</b> - Summa Cum Laude GPA 3.91, January 2020 - May 2023 Texas A&M University-Commerce, Commerce, Texas</p>
+                            <p class=".p2"><b>Bachelor of Science in Mathematics with Minor in Computer Science</b> - Cum Laude GPA 3.54, January 2015 - December 2017 Texas A&M University-Commerce, Commerce, Texas</p>
+                            <p class=".p2"><b>Associate of Science in Mathematics</b> - Magna Cum Laude GPA 3.78, August 2012 - December 2014 Tyler Junior College, Tyler, Texas</p>
                         </div>
                         <div class="TEXT_AREA_" id="ABOUT_WEBSITE_" style="grid-area: ABOUT_WEBSITE_;">
                             <header><h2>About This Website</h2></header>
-                            
+                            <header><h3>Greetings</h3></header>
+                            <p class=".p2">&emsp;&emsp;Hello and welcome to this website. The purpose of this website is two fold: to provide demonstration and a easy way to navigate my repos. To navigate this website please use the menu on the left side of the site, if the site is in reduce or mobile mode the the menu will retract and a menu icon will appear in the top left corner. Along the top in the center is a shortcut to the homepage of this site and on the right is a ling to my GitHub and LinkedIn.</p>
+                            <header><h3>Building</h3></header>
+                            <p class=".p2">&emsp;&emsp;This Website was primarily made with Visual Studio Code for coding; Google Chrome, Microsoft edge, and Firefox for debugging, GIMP for art work, and GitHub Pages for hosting. Along with software the libraries used are JQuery for streamlining the code, ThreeJS for the render in the background of the homepage, and JakGameEngine which is a custom library created and use for handling user input, timing for canvases, drawing sprites, shapes, and text to canvases, and rendering methods such as wire-frame or ray-casting.</p>
+                            <header><h3>Pages</h3></header>
+                            <p class=".p2"><b>Note:</b> although this website does not have flashing light, some of the demonstration have moving part so please be aware.</p>
+                            <p class=".p2">The "AI Demonstration" page shows a working demonstration of a program using Q-Table reinforcement learning machine learning with a explanation of how  Q-Table reinforcement operates.</p>
+                            <p class=".p2">The "Project Demonstrations" page provides interactive demonstrations along with some description on how they work.</p>
+                            <p class=".p2">The "Project List" page gives a sortable list of repo read-mes from my GitHub, the read-me are requested directly from GitHub with Ajax so minimum changes have to be made to this website when a new repo is added.</p>
+                            <header><h3>Appreciation</h3></header>
+                            <p class=".p2">Lastly, thank you for visiting this website,<br>Stephen Baxter.</p>
                         </div>
                     </div></div>
                 </div>
                 <div class="MAIN_PAGE_" id="AI_DEMONSTRATION_PAGE_">
                     <div class="TEXT_AREA_CONTAINER_" style="grid-area: QT_;">
-                        <div class="TEXT_AREA_" id="AI_TITLE_">Object Dodging</div>
+                        <div class="TEXT_AREA_" id="AI_TITLE_"><header><h2>AI Demonstration</h2></header><header><h3>Racecar Dodging</h3></header></div>
                         <div id="AI_PLAY_AREA_">
+                            <div class="TEXT_AREA_"><header><h3>Demonstration</h3></header></div>
                             <div class="TEXT_AREA_" id="SCORE_"></div>
                             <div id="FIX_GAP_"><canvas id="SCENE_" width = "300" height = "200"></canvas></div>
                             <div id="AI_PLAY_AREA_BUTTONS_">
-                                <div class="BUTTON_" onclick="PauseToggle()">Pause</div>
-                                <div class="BUTTON_" onclick="Reset()">Reset</div>
-                                <div class="BUTTON_" onclick="AIToggle()">Turn on AI</div>
+                                <div class="BUTTON_ CENTER_" onclick="PauseToggle()">Pause</div>
+                                <div class="BUTTON_ CENTER_" onclick="Reset()">Reset</div>
+                                <div class="BUTTON_ CENTER_" onclick="AIToggle()">AI</div>
                             </div>
                             <form class="TEXT_AREA_" id="AI_CONTROLS_">
-                                <label>Reward for dodging -----------: <input type="number" value="20"></label><br>
-                                <label>Reward for hitting -----------: <input type="number" value="-200"></label><br>
-                                <label>Chance of taking random action: <input type="number" value="0.98"></label><br>
-                                <label>Alpha ------------------------: <input type="number" value="0.0001"></label><br>
-                                <label>Gamma ------------------------: <input type="number" value="0.8"></label><br>
+                                <p class=".p2">
+                                    <label>Reward for dodging -----------: <input type="number" value="20"></label><br>
+                                    <label>Reward for hitting -----------: <input type="number" value="-200"></label><br>
+                                    <label>Chance of taking random action: <input type="number" value="0.01" min="0" max="1" step="0.01"></label><br>
+                                    <label>Alpha ------------------------: <input type="number" value="0.0001" min="0" max="1" step="0.0001"></label><br>
+                                    <label>Gamma ------------------------: <input type="number" value="0.8" min="0" max="1" step="0.01"></label><br>
+                                </p>
                             </form>
                             <div id="MANUAL_CONTROLS_">
-                                <div class="BUTTON_" onclick="TurnPlayerLeft()">LEFT</div>
-                                <div class="BUTTON_" onclick="TurnPlayerRight()">RIGHT</div>
+                                <div class="BUTTON_ CENTER_" onclick="TurnPlayerLeft()">LEFT</div>
+                                <div class="BUTTON_ CENTER_" onclick="TurnPlayerRight()">RIGHT</div>
                             </div>
                         </div>
-                        <table id="Q_TABLE_">
-                            <tr><td colspan="4">Q TABLE</td></tr>
-                            <tr><td>State \ Action</td><td>turn left</td><td>keep going straight</td><td>turn right</td></tr>
-                            <tr><td>State 1</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 2</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 3</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 4</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 5</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 6</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 7</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 8</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 9</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 10</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 11</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 12</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 13</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 14</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 15</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 16</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 17</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 18</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 19</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 20</td><td>0</td><td>0</td><td>0</td></tr>
-                            <tr><td>State 21</td><td>0</td><td>0</td><td>0</td></tr>
-                        </table>
+                        <div id="Q_TABLE_" style="grid-area: Q_TABLE_;">
+                            <div class="TEXT_AREA_"><header><h3>Q-Table</h3></header></div>
+                            <table>
+                                <tr><td>State \ Action</td><td>turn left</td><td>keep going straight</td><td>turn right</td></tr>
+                                <tr><td>State 1</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 2</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 3</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 4</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 5</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 6</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 7</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 8</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 9</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 10</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 11</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 12</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 13</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 14</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 15</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 16</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 17</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 18</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 19</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 20</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>State 21</td><td>0</td><td>0</td><td>0</td></tr>
+                            </table>
+                        </div>
+                        
                         <div class="TEXT_AREA_" id="QTABLE_DESCRIPTION_" style="grid-area: Q_TABLE_DESCRIPTION_;">
-                            <pre><code id="JakQTableBrainJQTBrain"></code></pre>
-                            <pre><code id="JakQTableBrainGetStateForAI"></code></pre>
-                            <pre><code id="JakQTableBrainGetActionNumber"></code></pre>
-                            <pre><code id="JakQTableBrainUpdateQTable"></code></pre>
-                            <pre><code id="JakQTableBrainResetQTable"></code></pre>
-                            <pre><code id="JakQTableBrainGetQTable"></code></pre>
-                            <pre><code id="JakQTableBrainSetAlpha"></code></pre>
-                            <pre><code id="JakQTableBrainGetAlpha"></code></pre>
+                            <header><h3>Description</h3></header>
+                            <p class=".p2">&emsp;&emsp;</p>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainJQTBrain"></code></pre><header><h3>Figure 1</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainGetStateForAI"></code></pre><header><h3>Figure 2</h3></header></div>
+                            <p class=".p2">&emsp;&emsp;Key Terminologies in Q-learning<br><br>
+                                States(s): the current position of the agent in the environment. In the case of this demonstration, the agent's position can be 0 (left), 1 (center), or 2 (right). The environment is the cars if any that are in front of the agent: “0,0,0”, “0,0,1”, “0,1,0”, “0,1,1”, “1,0,0”, “1,0,1”, or “1,1,0” (the ones represent a car). Figure X. shows the code used to find the state. We have 21 states in total.<br><br>
+                                Action(a): a step taken by the agent in a particular state.  In the case of this demonstration, there are three actions the agent can take: turn left, keep going straight, or turn right.<br><br>
+                                Rewards: for every action, the agent is given a reward. In the case of this demonstration, the default reward for dodging is 20 while the reward for hitting is -200.<br><br>
+                                Episodes: the end of the stage. In the case of this demonstration, a episode is 30 ticks long with one tick  being around one frame and the demonstration runs at 30 frame per second so a episode is about a second long.<br><br>
+                                Q(St+1, a): expected optimal Q-value of doing the action in a particular state. <br><br>
+                                Q(St, At): it is the current estimation of Q(St+1, a).<br><br>
+                                Q-Table: the agent maintains the Q-table of sets of states and actions.<br><br>
+                                Temporal Differences(TD): used to estimate the expected value of Q(St+1, a) by using the current state, action, previous state and action. </p>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainGetActionNumber"></code></pre><header><h3>Figure 3</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainUpdateQTable"></code></pre><header><h3>Figure 4</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainResetQTable"></code></pre><header><h3>Figure 5</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainGetQTable"></code></pre><header><h3>Figure 6</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainSetAlpha"></code></pre><header><h3>Figure 7</h3></header></div>
+                            <div class="FIGURE_"><pre><code id="JakQTableBrainGetAlpha"></code></pre><header><h3>Figure 8</h3></header></div>
                         </div>
                     </div>
                 </div>
                 <div class="MAIN_PAGE_" id="PROJECT_DEMONSTRATIONS_PAGE_">
                     <div class="TEXT_AREA_CONTAINER_">
                         <div id="PROJECT_DEMONSTRATION_LIST_">
-                            <div class="BUTTON_" onclick="ChangeDemonstration(0)">Flight Simulator</div>
-                            <div class="BUTTON_" onclick="ChangeDemonstration(1)">Raycaster</div>
+                            <div class="BUTTON_ CENTER_" onclick="ChangeDemonstration(0)">Flight Simulator</div>
+                            <div class="BUTTON_ CENTER_" onclick="ChangeDemonstration(1)">Raycaster</div>
                         </div>
                         <div id="PROJECT_DEMONSTRATION_PLAY_AREA_">
                             <canvas id="SCREEN_" style="grid-area: PS_;"></canvas>
                             <div id="LEFT_CONTROLS_">
                                 <div id="FOUR_BUTTON_OUT_">
-                                    <div id="FOUR_BUTTON_IN_A_" style="left: 66.67%; top: 33.33%;">A</div>
-                                    <div id="FOUR_BUTTON_IN_B_" style="left: 33.33%; top: 33.33%;">B</div>
-                                    <div id="FOUR_BUTTON_IN_X_" style="left: 33.33%; top: -66.67%;">X</div>
-                                    <div id="FOUR_BUTTON_IN_Y_" style="left: 0%; top: -66.67%;">Y</div>
+                                    <div id="FOUR_BUTTON_IN_A_" class="CENTER_" style="left: 66.67%; top: 33.33%;">A</div>
+                                    <div id="FOUR_BUTTON_IN_B_" class="CENTER_" style="left: 33.33%; top: 33.33%;">B</div>
+                                    <div id="FOUR_BUTTON_IN_X_" class="CENTER_" style="left: 33.33%; top: -66.67%;">X</div>
+                                    <div id="FOUR_BUTTON_IN_Y_" class="CENTER_" style="left: 0%; top: -66.67%;">Y</div>
                                 </div>
-                                <div id="SELECT_">SELECT</div>
+                                <div id="SELECT_" class="CENTER_">SELECT</div>
                             </div>
                             <div id="RIGHT_CONTROLS_">
-                                <div id="JOY_STICK_OUT_"><div id="JOY_STICK_IN_">JOY<br>STICK</div></div>
-                                <div id="START_">START</div>
+                                <div id="JOY_STICK_OUT_"><div id="JOY_STICK_IN_" class="CENTER_">JOY<br>STICK</div></div>
+                                <div id="START_" class="CENTER_">START</div>
                             </div>
                         </div>
                         

@@ -35,7 +35,8 @@ class FLIGHT_SIMULATOR
             this.orientation = new jge.MATRIX();
             this.orthonormalizedCounter = 0;
             this.mass = 408.2331;
-            this.thrust = 0;
+            this.enginePower = 0;
+            this.propRadius = 2.667
             this.netSpeedVector = new jge.VECTOR(0,0,0);
             this.elevator = 0;
             this.aileron = 0;
@@ -72,38 +73,43 @@ const OnFlightSimulatorFrameUpdate = function(delta_time_)
 {
     if (indexVariables.keyBuffer.IsKeyDown("r") || projectDemosVariables.gamePad.buttonSelect.down) OnFlightSimulatorFrameStart();
 
+
     const Z_NEAR = projectDemosVariables.flightSimulator.Z_NEAR;
     const Z_FAR = projectDemosVariables.flightSimulator.Z_FAR;
     let world = projectDemosVariables.flightSimulator.world;
     let player = projectDemosVariables.flightSimulator.player;
+    let airDensity = world.airDensity*(1-player.position.vector[1]/(2*world.size));
+
+    let playerNetSpeed = player.netSpeedVector.magnitude();
+    let playerZDirection = new jge.VECTOR(player.orientation.matrix[2][0],player.orientation.matrix[2][1],player.orientation.matrix[2][2]);
+    let playerZNetSpeed = player.netSpeedVector.Projection(playerZDirection.MulNumber(playerNetSpeed).vector);
+    let windSpeed = world.windSpeedVector.magnitude();
+    let windDirection = world.windSpeedVector.Normalise();
+    let windZSpeed = world.windSpeedVector.Projection(playerZDirection.MulNumber(windSpeed).vector);
+    let windForce = airDensity*0.1*windSpeed*windSpeed;
+    //console.log(windForce);
+    let windForceVector = windDirection.MulNumber(windForce);
+    let netZSpeed = playerZNetSpeed + windZSpeed;
 
     //if (indexVariables.keyBuffer.IsKeyDown("q") && player.isBrakeOn) { player.isBrakeOn = !player.isBrakeOn; }//w
-    if ((indexVariables.keyBuffer.IsKeyDown("w") || projectDemosVariables.gamePad.buttonX.down) && player.thrust <= 49900) { player.isBrakeOn = false; player.thrust += 100; }//w
-    if ((indexVariables.keyBuffer.IsKeyDown("s") || projectDemosVariables.gamePad.buttonB.down) && player.thrust >= 100) { player.thrust -= 100; }//s
-                
-    let thrustForce = -player.thrust;
-    let playerZDirection = new jge.VECTOR(player.orientation.matrix[2][0],player.orientation.matrix[2][1],player.orientation.matrix[2][2]);
+    if ((indexVariables.keyBuffer.IsKeyDown("w") || projectDemosVariables.gamePad.buttonX.down) && player.enginePower <= 49900) { player.isBrakeOn = false; player.enginePower += 100; }//w
+    if ((indexVariables.keyBuffer.IsKeyDown("s") || projectDemosVariables.gamePad.buttonB.down) && player.enginePower >= 100) { player.enginePower -= 100; }//s
+
+    let airSpeedFromProp = player.enginePower * (1-player.position.vector[1]/(2*world.size));
+    let thrustForce = -airSpeedFromProp;/// (airDensity* ((airSpeedFromProp)*(airSpeedFromProp)-(netZSpeed)*(netZSpeed))*0.000000001*Math.PI*player.propRadius*player.propRadius) /2;
     let thrustForceVector = playerZDirection.MulNumber(thrustForce);
+    //jge.l(airSpeedFromProp, netZSpeed);
 
     let gravityForce = -9.80665*player.mass;
     let gravityDirection = new jge.VECTOR(0,1,0);
     let gravityForceVector = gravityDirection.MulNumber(gravityForce);
 
-    let windSpeed = world.windSpeedVector.magnitude();
-    let windDirection = world.windSpeedVector.Normalise();
-    let windZSpeed = world.windSpeedVector.Projection(playerZDirection.MulNumber(windSpeed).vector);
-    let windForce = world.airDensity*(1-player.position.vector[1]/(2*world.size))*0.1*windSpeed*windSpeed;
-    //console.log(windForce);
-    let windForceVector = windDirection.MulNumber(windForce);
-
-    let playerNetSpeed = player.netSpeedVector.magnitude()
+    
     let playerNetDirection = player.netSpeedVector.Normalise();
-    let dragForce = -playerNetSpeed*playerNetSpeed*0.5*world.airDensity*1*(1-player.position.vector[1]/(2*world.size));
+    let dragForce = -playerNetSpeed*playerNetSpeed*0.5*1*airDensity;
     let dragForceVector = playerNetDirection.MulNumber(dragForce);
 
-    let playerZNetSpeed = player.netSpeedVector.Projection(playerZDirection.MulNumber(playerNetSpeed).vector);
-    let playerWindZSpeed = playerZNetSpeed+windZSpeed;
-    let liftForce = playerWindZSpeed*playerWindZSpeed*0.5*world.airDensity*2*(1-player.position.vector[1]/(2*world.size));
+    let liftForce = netZSpeed*netZSpeed*0.5*2*airDensity;
     let playerYDirection = new jge.VECTOR(player.orientation.matrix[1][0],player.orientation.matrix[1][1],player.orientation.matrix[1][2]);
     let liftForceVector = playerYDirection.MulNumber(liftForce);
 
@@ -124,12 +130,12 @@ const OnFlightSimulatorFrameUpdate = function(delta_time_)
     }
     
     let turnSpeedPitch = player.elevator;
-    let turnSpeedRoll = player.aileron - player.thrust*0.00005;
+    let turnSpeedRoll = player.aileron - player.enginePower*0.00005;
     let turnSpeedYall = player.rudder;
     let a = -0.2;//579.4248;
-    let pitchTurnRate = a*turnSpeedPitch*playerWindZSpeed;
-    let rollTurnRate = a*turnSpeedRoll*playerWindZSpeed;
-    let yawTurnRate = a*turnSpeedYall*playerWindZSpeed;
+    let pitchTurnRate = a*turnSpeedPitch*netZSpeed;
+    let rollTurnRate = a*turnSpeedRoll*netZSpeed;
+    let yawTurnRate = a*turnSpeedYall*netZSpeed;
 
     player.orientation = player.orientation.MulMatrix(jge.CreateRotationMatrix(jge.math.DegreeToRadian(pitchTurnRate*delta_time_), player.orientation.matrix[0]).matrix);
     player.orientation = player.orientation.MulMatrix(jge.CreateRotationMatrix(jge.math.DegreeToRadian(rollTurnRate*delta_time_), player.orientation.matrix[2]).matrix);
@@ -224,4 +230,16 @@ const OnFlightSimulatorFrameUpdate = function(delta_time_)
     let viewMatrix = cameraMatrix.Inverse();
 
     jge.RenderWireframe(projectDemosVariables.screen, world.terrain, viewMatrix, projectionMatrix, Z_NEAR);
+
+    //let outputTextLine1 = "Speed: "+(playerZNetSpeed ? -playerZNetSpeed.toFixed(2): "0.00")+" m/s"
+    //let outputTextLine2 = "Position: X:"+(player.worldPosition.vector[0].toFixed(2))+" m, Y:"+(player.worldPosition.vector[2].toFixed(2))+" m"
+    /*let outputTextLine1 = "Engine Power: "+(100*player.enginePower/50000).toFixed(0)+"%"
+    let outputTextLine2 = "Engine Power: "+(100*player.enginePower/50000).toFixed(0)+"%"
+    let outputTextLine3 = "Engine Power: "+(100*player.enginePower/50000).toFixed(0)+"%"*/
+    let outputTextLine4 = "Engine Power: "+(100*player.enginePower/50000).toFixed(0)+"%"
+    //let outputTextLine3 = "Altitude: "+(player.position.vector[1]).toFixed(2)+"m"
+    /*jge.DrawText(projectDemosVariables.screen, outputTextLine1, "20px mono", "rgb(0, 255, 0)", 0, 20);
+    jge.DrawText(projectDemosVariables.screen, outputTextLine2, "20px mono", "rgb(0, 255, 0)", 0, 40);
+    jge.DrawText(projectDemosVariables.screen, outputTextLine3, "20px mono", "rgb(0, 255, 0)", 0, 60);*/
+    jge.DrawText(projectDemosVariables.screen, outputTextLine4, "20px mono", "rgb(0, 255, 0)", 0, 20);
 }

@@ -24,6 +24,15 @@ code
     width: calc(100% - 20px);
     height: auto;
 }
+td
+{
+    font-family: monospace;
+    font-size: 1.2em;
+}
+input[type="number"]
+{
+    width: 75px;
+}
 img
 {
     user-select: none;
@@ -56,6 +65,12 @@ header h2
     text-align: center;
     font-size: 4vw;
 }
+header h3
+{
+    margin: 0;
+    text-align: center;
+    font-size: 3vw;
+}
 
 .LOADING_WHEEL_
 {
@@ -86,11 +101,19 @@ header h2
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
+    transition: all 200ms ease-in-out;
 }
 .BUTTON_:focus, .BUTTON_.HOVER_, .BUTTON_.SELECTED_
 {
     background-color: rgb(127, 255, 127);
     border: 10px solid rgb(255, 127, 127);
+}
+.CENTER_
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 #LOADING_SCREEN_
@@ -99,10 +122,7 @@ header h2
     color: silver;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
 }
 
 #LAYOUT_
@@ -202,6 +222,10 @@ footer
     grid-area: FOOTER_;
     text-align: center;
 }
+.FIGURE_
+{
+    width: 100%;
+}
 /*--------------------------------------------------------*/
 #HOME_PAGE_
 {
@@ -239,10 +263,6 @@ footer
 #AI_TITLE_
 {
     grid-area: AI_TITLE_;
-    font-family: monospace;
-    font-size: 2.5em;
-    text-align: center;
-    
 }
 #AI_PLAY_AREA_
 {
@@ -292,21 +312,20 @@ footer
     width: calc(50% - 20px);
     text-align: center;
 }
-#Q_TABLE_
+#Q_TABLE_ table
 {
-    grid-area: Q_TABLE_;
     background-color: rgba(192, 192, 192, 0.75);
     width: 100%;
     text-align: center;
     border-spacing: 0;
 }
-#Q_TABLE_ td
+#Q_TABLE_ table td
 {
     width: 25%;
     border: 1px solid rgb(60, 60, 60);
     text-align: center;
 }
-#Q_TABLE_ .HIGHLIGHTED_
+#Q_TABLE_ table .HIGHLIGHTED_
 {
     border: 1px solid rgba(255, 127, 127, 0.20);
     background-color: rgba(127, 255, 127, 0.20);
@@ -359,9 +378,6 @@ footer
     top: 25%;
     position: relative;
     pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: monospace;
     font-size: 1.5em;
 }
@@ -384,9 +400,6 @@ footer
     width: 33.33%;
     aspect-ratio: 1/1;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: monospace;
     font-size: 1.5em;
 }
@@ -401,9 +414,6 @@ footer
     background-color: rgb(255, 127, 0);
     width: 100%;
     aspect-ratio: 3/1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: monospace;
     font-size: 1.5em;
 }

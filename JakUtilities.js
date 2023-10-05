@@ -425,6 +425,23 @@ const jge = {
         ctx_.fillStyle = color_;
         ctx_.fillRect(0, 0, ctx_.canvas.width, ctx_.canvas.height);
     },
+    DrawText: function(ctx_, text_, font_, color_, x_, y_, fill_=true, direction_="inherit", text_align_="start", text_baseline_="alphabetic")
+    {
+        ctx_.font = font_;
+        ctx_.direction = direction_;
+        ctx_.textAlign = text_align_;
+        ctx_.textBaseline = text_baseline_;
+        if (fill_)
+        {
+            ctx_.fillStyle = color_;
+            ctx_.fillText(text_, x_, y_);
+        }
+        else
+        {
+            ctx_.strokeStyle = color_;
+            ctx_.strokeText(text_, x_, y_);
+        }
+    },
     DrawLine: function(ctx_, color_, vector_one_, vector_two_, line_width_=1)
     {
         ctx_.strokeStyle = color_;

@@ -2,53 +2,51 @@ let aiVariables = null;
 
 class AI_VARIABLES
 {
-    pause = true;
-    playerPosition = {x: 1, y: 4};
-    canvas = null;
-    playerHit = false;
-    obstructionPatterns = [[0,0,1],[0,0,2],[0,0,3],
-    [0,1,0],[0,1,1],[0,1,2],
-    [0,1,3],[0,2,0],[0,2,1],
-    [0,2,2],[0,2,3],[0,3,0],
-    [0,3,1],[0,3,2],[0,3,3],
-    [1,0,0],[1,0,1],[1,0,2],
-    [1,0,3],[1,1,0],[1,2,0],
-    [1,3,0],[2,0,0],[2,0,1],
-    [2,0,2],[2,0,3],[2,1,0],
-    [2,2,0],[2,3,0],[3,0,0],
-    [3,0,1],[3,0,2],[3,0,3],
-    [3,1,0],[3,2,0],[3,3,0]];
-    leftSprites = [new jge.SPRITE(indexVariables.spriteSheet, 32, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 80, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 80, 16, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 32, 16, 16)];
-    rightSprites = [new jge.SPRITE(indexVariables.spriteSheet, 16, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 64, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 64, 16, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 16, 16, 16)];
-    centerSprites = [new jge.SPRITE(indexVariables.spriteSheet, 0, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 48, 0, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 48, 16, 16),
-        new jge.SPRITE(indexVariables.spriteSheet, 0, 16, 16)];
-    obstructionPatternUsed = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
-    numberOfDodges = 0;
-    numberOfHits = 0;
-    aiIsTurnOn = false;
-    numberOfStates = 3 * 7;
-    numberOfActions = 3;
-    ChanceOfTakingRandomAction = 0.98;
-    alpha = 0.0001;
-    gamma = 0.8;
-    brainForAI = null;
-    reward = 0;
-    rewardForDodging = 20;
-    rewardForHitting = -200;
-    state0 = 0;
-    state1 = 0;
-    actionToTake = 0;
-
     constructor()
 	{
+        this.pause = true;
+        this.playerPosition = {x: 1, y: 4};
+        this.canvas = null;
+        this.playerHit = false;
+        this.obstructionPatterns = [[0,0,1],[0,0,2],[0,0,3],
+                                    [0,1,0],[0,1,1],[0,1,2],
+                                    [0,1,3],[0,2,0],[0,2,1],
+                                    [0,2,2],[0,2,3],[0,3,0],
+                                    [0,3,1],[0,3,2],[0,3,3],
+                                    [1,0,0],[1,0,1],[1,0,2],
+                                    [1,0,3],[1,1,0],[1,2,0],
+                                    [1,3,0],[2,0,0],[2,0,1],
+                                    [2,0,2],[2,0,3],[2,1,0],
+                                    [2,2,0],[2,3,0],[3,0,0],
+                                    [3,0,1],[3,0,2],[3,0,3],
+                                    [3,1,0],[3,2,0],[3,3,0]];
+        this.leftSprites = [new jge.SPRITE(indexVariables.spriteSheet, 32, 0, 16),
+                            new jge.SPRITE(indexVariables.spriteSheet, 80, 0, 16),
+                            new jge.SPRITE(indexVariables.spriteSheet, 80, 16, 16),
+                            new jge.SPRITE(indexVariables.spriteSheet, 32, 16, 16)];
+        this.rightSprites = [new jge.SPRITE(indexVariables.spriteSheet, 16, 0, 16),
+                             new jge.SPRITE(indexVariables.spriteSheet, 64, 0, 16),
+                             new jge.SPRITE(indexVariables.spriteSheet, 64, 16, 16),
+                             new jge.SPRITE(indexVariables.spriteSheet, 16, 16, 16)];
+        this.centerSprites = [new jge.SPRITE(indexVariables.spriteSheet, 0, 0, 16),
+                              new jge.SPRITE(indexVariables.spriteSheet, 48, 0, 16),
+                              new jge.SPRITE(indexVariables.spriteSheet, 48, 16, 16),
+                              new jge.SPRITE(indexVariables.spriteSheet, 0, 16, 16)];
+        this.obstructionPatternUsed = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+        this.numberOfDodges = 0;
+        this.numberOfHits = 0;
+        this.aiIsTurnOn = false;
+        this.numberOfStates = 3 * 7;
+        this.numberOfActions = 3;
+        this.ChanceOfTakingRandomAction = 0.01;
+        this.alpha = 0.0001;
+        this.gamma = 0.8;
+        this.reward = 0;
+        this.rewardForDodging = 20;
+        this.rewardForHitting = -200;
+        this.state0 = 0;
+        this.state1 = 0;
+        this.actionToTake = 0;
 		this.brainForAI = new JQTBrain(this.numberOfStates, this.numberOfActions, this.alpha, this.gamma);
 	}
 
@@ -150,7 +148,7 @@ const Draw = function()
 	    {
             if (indexVariables.spriteSheet.ready)
             {
-                if (i < 2) aiVariables.rightSprites[aiVariables.obstructionPatternUsed[i][1]-1].Draw(aiVariables.canvas, centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
+                if (i < 3) aiVariables.rightSprites[aiVariables.obstructionPatternUsed[i][1]-1].Draw(aiVariables.canvas, centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
                 else aiVariables.centerSprites[aiVariables.obstructionPatternUsed[i][1]-1].Draw(aiVariables.canvas, centerObstructionX + obstructionWidth / 2, obstructionY + obstructionWidth / 2, obstructionWidth);
             }
             else
@@ -203,11 +201,11 @@ const PauseToggle = function()
     
     if (aiVariables.pause)
     {
-        $("#AI_PLAY_AREA_").children().eq(2).addClass("SELECTED_");
+        $("#AI_PLAY_AREA_BUTTONS_").children().eq(0).addClass("SELECTED_");
     }
     else
     {
-        $("#AI_PLAY_AREA_").children().eq(2).removeClass("SELECTED_");
+        $("#AI_PLAY_AREA_BUTTONS_").children().eq(0).removeClass("SELECTED_");
     }
 }
 const Reset = function()
@@ -231,7 +229,6 @@ const AIToggle = function()
     
     if (aiVariables.aiIsTurnOn)
     {
-        $("#AI_PLAY_AREA_BUTTONS_").children().eq(2).text("AI On");
         $("#AI_PLAY_AREA_BUTTONS_").children().eq(2).addClass("SELECTED_");
         $("#MANUAL_CONTROLS_").hide();
         $("#AI_CONTROLS_").show();
@@ -239,7 +236,6 @@ const AIToggle = function()
     }
     else
     {
-        $("#AI_PLAY_AREA_BUTTONS_").children().eq(2).text("AI Off");
         $("#AI_PLAY_AREA_BUTTONS_").children().eq(2).removeClass("SELECTED_");
         $("#AI_CONTROLS_").hide();
         $("#MANUAL_CONTROLS_").show();
@@ -277,7 +273,6 @@ const GetStateForAI = function()
 const UpdateAIDemonstrationPageQTable = function()
 {
     let qTable = aiVariables.brainForAI.qTable;
-    
 
     let smallestQTableValueOnStates = [];
     for (let i = 0; i < aiVariables.numberOfStates; i++) smallestQTableValueOnStates.push(Math.min.apply(null, qTable[i]));
@@ -289,30 +284,33 @@ const UpdateAIDemonstrationPageQTable = function()
 
     $("#Q_TABLE_ tr td").removeClass("HIGHLIGHTED_");
     for (let i = 0; i < aiVariables.actionToTake + 2; i++)
-    {
-        $("#Q_TABLE_ tr:nth-child(" + (aiVariables.state0 + 3) + ") td:nth-child(" + (i + 1) + ")").addClass("HIGHLIGHTED_");
-    }
+        $("#Q_TABLE_ tr:nth-child(" + (aiVariables.state0 + 2) + ") td:nth-child(" + (i + 1) + ")").addClass("HIGHLIGHTED_");
     for (let i = 0; i < aiVariables.state0 + 1; i++)
-    {
-        $("#Q_TABLE_ tr:nth-child(" + (i + 2) + ") td:nth-child(" + (aiVariables.actionToTake + 2) + ")").addClass("HIGHLIGHTED_");
-    }
+        $("#Q_TABLE_ tr:nth-child(" + (i + 1) + ") td:nth-child(" + (aiVariables.actionToTake + 2) + ")").addClass("HIGHLIGHTED_");
 
     for (let i = 0; i < aiVariables.numberOfStates; i++)
     {
         for (let j = 0; j < aiVariables.numberOfActions; j++)
         {
-            let qTableValue = $("#Q_TABLE_ tr:nth-child(" + (i + 3) + ") td:nth-child(" + (j + 2) + ")")
-            qTableValue.text("" + qTable[i][j].toExponential(2));
-            let colorPrecentage = 255 * (((qTable[i][j] - smallestQTableValue) / QTableValueDefrence)**3);
-            qTableValue.css("background-color", "rgb(" + 255 + ", " + (255-colorPrecentage) + ", " + (255-colorPrecentage) +", " + 0.5 + ")");
+            let qTableValue = $("#Q_TABLE_ tr:nth-child(" + (i + 2) + ") td:nth-child(" + (j + 2) + ")")
+            qTableValue.text("" + qTable[i][j].toFixed(6));//.toExponential(2));
+            let colorPrecentage = 255* ((qTable[i][j] - smallestQTableValue) / QTableValueDefrence);
+            if (qTable[i][j] > 0)
+            {
+                qTableValue.css("background-color", "rgb(" + (255-colorPrecentage) + ", 255, 0, 0.5)");
+            }
+            else
+            {
+                qTableValue.css("background-color", "rgb(255, " + (colorPrecentage) + ", 0, 0.5)");
+            }
         }
     }
 }
 const UpdateScore = function()
 {
     $("#AI_PLAY_AREA_ #SCORE_").text("Dodges: " + aiVariables.numberOfDodges +
-    " Hits: " + aiVariables.numberOfHits +
-    " Dodges/Hits: " + ((aiVariables.numberOfHits === 0) ? 0 : (aiVariables.numberOfDodges / aiVariables.numberOfHits)).toFixed(2));  
+    "| Hits: " + aiVariables.numberOfHits +
+    "| Success Rate: " + (((aiVariables.numberOfHits+aiVariables.numberOfDodges === 0) ? 1 : aiVariables.numberOfDodges / (aiVariables.numberOfHits+aiVariables.numberOfDodges))*100).toFixed(2) + "%");  
 }
 
 const TurnPlayerLeft = function()
@@ -364,7 +362,7 @@ const OnAIFrameUpdate = function(time_step_)
             if (Math.floor(time_step_ % 10) == 0)
             {
                 aiVariables.state0 = GetStateForAI();
-                let takeRandomAction = aiVariables.ChanceOfTakingRandomAction < Math.random ();
+                let takeRandomAction = aiVariables.ChanceOfTakingRandomAction >= Math.random ();
                 aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, takeRandomAction);
                 UpdateAIPlayer();
             }
@@ -373,17 +371,15 @@ const OnAIFrameUpdate = function(time_step_)
         {
             
             let lastRow = UpdateObstructions();
-            if (lastRow[aiVariables.playerPosition.x] === 1)
+            if (lastRow[aiVariables.playerPosition.x] > 0)
             {
                 aiVariables.numberOfHits += 1;
-                UpdateScore();
                 aiVariables.reward += aiVariables.rewardForHitting;
                 aiVariables.playerHit = true;
             }
             else
             {
                 aiVariables.numberOfDodges += 1;
-                UpdateScore();
                 aiVariables.reward += aiVariables.rewardForDodging;
                 aiVariables.playerHit = false;
             }
@@ -394,6 +390,7 @@ const OnAIFrameUpdate = function(time_step_)
             aiVariables.brainForAI.UpdateQTable(aiVariables.reward, aiVariables.state0, aiVariables.actionToTake, aiVariables.state1);
             UpdateAIDemonstrationPageQTable();
         }
+        UpdateScore();
     }
 }
 const DisplayCodeInHtml = function()
