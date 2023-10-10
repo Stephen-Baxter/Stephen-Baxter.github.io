@@ -15,7 +15,7 @@ class PROJECT_DEMONSTRATIONS_VARIABLES
     {
         if (indexVariables.screenLayoutType == 0 || indexVariables.screenLayoutType == 2)
         { 
-            $("#PROJECT_DEMONSTRATION_LIST_").css("grid-template-columns", "repeat(3, 33%)");
+            $("#PROJECT_DEMONSTRATION_LIST_").css("grid-template-columns", "repeat(3, 33.33%)");
             $("#PROJECT_DEMONSTRATION_PLAY_AREA_").css("grid-template-areas", "'PLC_ PS_ PS_ PRC_'");
             $("#PROJECT_DEMONSTRATION_PLAY_AREA_").css("grid-template-columns", "25% 25% 25% 25%");
             $("#PROJECT_DEMONSTRATION_PLAY_AREA_").css("grid-template-rows", "auto");

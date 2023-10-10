@@ -293,14 +293,16 @@ const UpdateAIDemonstrationPageQTable = function()
         for (let j = 0; j < aiVariables.numberOfActions; j++)
         {
             let qTableValue = $("#Q_TABLE_ tr:nth-child(" + (i + 2) + ") td:nth-child(" + (j + 2) + ")")
-            qTableValue.text("" + qTable[i][j].toFixed(6));//.toExponential(2));
+            qTableValue.text("" + qTable[i][j].toFixed(5));//.toExponential(2));
             let colorPrecentage = 255* ((qTable[i][j] - smallestQTableValue) / QTableValueDefrence);
             if (qTable[i][j] > 0)
             {
+                //let colorPrecentage = 255* (qTable[i][j] / largestQTableValue);
                 qTableValue.css("background-color", "rgb(" + (255-colorPrecentage) + ", 255, 0, 0.5)");
             }
             else
             {
+                //let colorPrecentage = 255-255*(qTable[i][j] / smallestQTableValue);
                 qTableValue.css("background-color", "rgb(255, " + (colorPrecentage) + ", 0, 0.5)");
             }
         }
@@ -357,13 +359,13 @@ const OnAIFrameUpdate = function(time_step_)
             aiVariables.reward = 0;
             aiVariables.state0 = GetStateForAI();
             aiVariables.state1 = aiVariables.state0;
-            aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, false);
+            aiVariables.actionToTake = aiVariables.brainForAI.GetAction(aiVariables.state0);
             
             if (Math.floor(time_step_ % 10) == 0)
             {
                 aiVariables.state0 = GetStateForAI();
                 let takeRandomAction = aiVariables.ChanceOfTakingRandomAction >= Math.random ();
-                aiVariables.actionToTake = aiVariables.brainForAI.GetActionNumber(aiVariables.state0, takeRandomAction);
+                aiVariables.actionToTake = aiVariables.brainForAI.GetAction(aiVariables.state0, takeRandomAction);
                 UpdateAIPlayer();
             }
         }
@@ -384,7 +386,7 @@ const OnAIFrameUpdate = function(time_step_)
                 aiVariables.playerHit = false;
             }
         }
-        if (aiVariables.aiIsTurnOn)
+        if (aiVariables.aiIsTurnOn && Math.floor(time_step_ % 10) == 0)
         {
             aiVariables.state1 = GetStateForAI();
             aiVariables.brainForAI.UpdateQTable(aiVariables.reward, aiVariables.state0, aiVariables.actionToTake, aiVariables.state1);
@@ -397,7 +399,7 @@ const DisplayCodeInHtml = function()
 {
     $("#JakQTableBrainJQTBrain").html("JQTBrain = " + JQTBrain.toString());
     $("#JakQTableBrainGetStateForAI").html("GetStateForAI = " + GetStateForAI.toString());
-    $("#JakQTableBrainGetActionNumber").html("GetActionNumber = " + aiVariables.brainForAI.GetActionNumber.toString());
+    $("#JakQTableBrainGetActionNumber").html("GetActionNumber = " + aiVariables.brainForAI.GetAction.toString());
     $("#JakQTableBrainUpdateQTable").html("UpdateQTable = " + aiVariables.brainForAI.UpdateQTable.toString());
     $("#JakQTableBrainResetQTable").html("ResetQTable = " + aiVariables.brainForAI.ResetQTable.toString());
     $("#JakQTableBrainGetQTable").html("qTable");

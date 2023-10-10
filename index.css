@@ -1,14 +1,23 @@
 p
 {
     margin: 10px;
+    /*width: clamp(35ch, 50%, 75ch);*/
+    width: clamp(min(45ch, calc(100% - 20px)), calc(100% - 20px), 75ch);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(192, 192, 192, 50%);
+    font-size: 20px;
 }
-.p1
+.CENTER_
 {
-    width: clamp(25ch, 50%, 75ch);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
-.p2
+.IN_TWO_
 {
-    width: clamp(25ch, 100%, 75ch);
+    display: inline-block;
 }
 pre
 {
@@ -16,7 +25,7 @@ pre
 }
 code
 {
-    background-color: blanchedalmond;
+    background-color: rgb(255, 255, 127);
     border: 1px solid rgb(60, 60, 60);
     margin: 10px;
     overflow-x: scroll;
@@ -31,7 +40,7 @@ td
 }
 input[type="number"]
 {
-    width: 75px;
+    width: 8ch;
 }
 img
 {
@@ -57,19 +66,19 @@ header h1
 {
     margin: 0;
     text-align: center;
-    font-size: 7vw;
+    font-size: clamp(2rem, 7vw, 7vw);
 }
 header h2
 {
     margin: 0;
     text-align: center;
-    font-size: 4vw;
+    font-size: clamp(1.43rem, 5vw, 5vw);
 }
 header h3
 {
     margin: 0;
     text-align: center;
-    font-size: 3vw;
+    font-size: clamp(1.14rem, 4vw, 4vw);
 }
 
 .LOADING_WHEEL_
@@ -108,13 +117,7 @@ header h3
     background-color: rgb(127, 255, 127);
     border: 10px solid rgb(255, 127, 127);
 }
-.CENTER_
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+
 
 #LOADING_SCREEN_
 {
@@ -225,6 +228,15 @@ footer
 .FIGURE_
 {
     width: 100%;
+    align-items: center;
+}
+.FIGURE_ img
+{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 /*--------------------------------------------------------*/
 #HOME_PAGE_
@@ -446,4 +458,12 @@ footer
     width: calc(100% - 2px);
     border: 1px solid rgb(60, 60, 60);
     
+}
+/*------------------------------------------------------------------------------------------------*/
+#GITHUB_PROJECTS_LIST_
+{
+    background-color: rgba(192, 192, 192, 0.75);
+    display: grid;
+    column-gap: 0;
+    row-gap: 0;
 }

@@ -29,11 +29,12 @@ class RAYCASTER
 
     Instructions = function()
     {
-        let instructions = "<p>instructions</p><br>"
-        instructions += "<kbd>a</kbd>: turn left<br>";
-        instructions += "<kbd>d</kbd>: turn right<br>";
-        instructions += "<kbd>w</kbd>: move forward<br>";
-        instructions += "<kbd>s</kbd>: move backward<br>";
+        let instructions = "<header><h2>instructions</h2></header>"
+        instructions += "<p class=\".p2\"><kbd>a</kbd>/<kbd>JOY STICK Left</kbd>: turn left<br>";
+        instructions += "<kbd>d</kbd>/<kbd>JOY STICK Right</kbd>: turn right<br>";
+        instructions += "<kbd>w</kbd>/<kbd>JOY STICK Up</kbd>: move forward<br>";
+        instructions += "<kbd>s</kbd>/<kbd>JOY STICK Down</kbd>: move backward<br>";
+        instructions += "<kbd>r</kbd>/<kbd>SELECT Button</kbd>: reset the demonstration<br></p>";
         return instructions;
     }
 }

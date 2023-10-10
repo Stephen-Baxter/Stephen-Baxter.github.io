@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net" modified="2023-10-08T02:41:33.414Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67" etag="T4i9DeqX4_FeD99vywPA" version="22.0.3" type="device">
+  <diagram name="Page-1" id="SkaX8vxheXTTC66i8LyJ">
+    <mxGraphModel dx="474" dy="833" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8OsTrOmKvjmC_N5TSKrk-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C0c0c0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="160" width="320" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-1" value="Step 1: the Q-table is initialize" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffc0;" parent="1" vertex="1">
+          <mxGeometry x="360" y="200" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-2" value="Step 2: the state at the beginning of the episode (St) is found" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffff3f;" parent="1" vertex="1">
+          <mxGeometry x="360" y="280" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-3" value="Step 3: a action (At) is chosen" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffc0;" parent="1" vertex="1">
+          <mxGeometry x="360" y="360" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-4" value="Step 4: the chosen action is perform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffff3f;" parent="1" vertex="1">
+          <mxGeometry x="360" y="440" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-5" value="Step 5: the reward (R(t+1)) from the action is calculated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffc0;" parent="1" vertex="1">
+          <mxGeometry x="360" y="520" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-o0db54XXsUdUP81Fmq1-1" target="-o0db54XXsUdUP81Fmq1-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-o0db54XXsUdUP81Fmq1-2" target="-o0db54XXsUdUP81Fmq1-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="-o0db54XXsUdUP81Fmq1-3" target="-o0db54XXsUdUP81Fmq1-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-o0db54XXsUdUP81Fmq1-4" target="-o0db54XXsUdUP81Fmq1-5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-o0db54XXsUdUP81Fmq1-10" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="8OsTrOmKvjmC_N5TSKrk-2" target="-o0db54XXsUdUP81Fmq1-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="320" y="710" />
+              <mxPoint x="320" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8OsTrOmKvjmC_N5TSKrk-1" value="Step 6: the state after the action is taken (St+1) is found" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffff3f;" vertex="1" parent="1">
+          <mxGeometry x="360" y="600" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8OsTrOmKvjmC_N5TSKrk-2" value="Step 7: the Q-table at state (St) and action (At) is updated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffc0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="680" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8OsTrOmKvjmC_N5TSKrk-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-o0db54XXsUdUP81Fmq1-5" target="8OsTrOmKvjmC_N5TSKrk-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="450" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8OsTrOmKvjmC_N5TSKrk-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8OsTrOmKvjmC_N5TSKrk-1" target="8OsTrOmKvjmC_N5TSKrk-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="450" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

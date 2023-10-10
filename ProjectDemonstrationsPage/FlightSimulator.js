@@ -47,18 +47,19 @@ class FLIGHT_SIMULATOR
 
     Instructions = function()
     {
-        let instructions = "<p>instructions</p><br>"
-        instructions += "<kbd>k</kbd>: turn left<br>";
-        instructions += "<kbd>;</kbd>: turn right<br>";
-        instructions += "<kbd>k</kbd>+<kbd>;</kbd>: turn right<br>";
-        instructions += "<kbd>o</kbd>: move forward<br>";
-        instructions += "<kbd>l</kbd>: move backward<br>";
-        instructions += "<kbd>o</kbd>+<kbd>l</kbd>: move backward<br>";
-        instructions += "<kbd>a</kbd>: move forward<br>";
-        instructions += "<kbd>d</kbd>: move backward<br>";
-        instructions += "<kbd>a</kbd>+<kbd>d</kbd>: move backward<br>";
-        instructions += "<kbd>w</kbd>: move forward<br>";
-        instructions += "<kbd>s</kbd>: move backward<br>";
+        let instructions = "<header><h2>instructions</h2></header>"
+        instructions += "<p class=\".p2\"><kbd>a</kbd>/<kbd>Y Button</kbd>: turn left<br>";
+        instructions += "<kbd>d</kbd>/<kbd>A Button</kbd>: turn right<br>";
+        instructions += "<kbd>a</kbd>+<kbd>d</kbd>/<kbd>Y Button</kbd>+<kbd>A Button</kbd>: center rudder<br>";
+        instructions += "<kbd>w</kbd>/<kbd>W Button</kbd>: increase engine power<br>";
+        instructions += "<kbd>s</kbd>/<kbd>S Button</kbd>: decrease engine power<br>";
+        instructions += "<kbd>k</kbd>/<kbd>JOY STICK Left</kbd>: roll left<br>";
+        instructions += "<kbd>;</kbd>/<kbd>JOY STICK Right</kbd>: roll right<br>";
+        instructions += "<kbd>k</kbd>+<kbd>;</kbd>/<kbd>JOY STICK Center</kbd>: center aileron<br>";
+        instructions += "<kbd>o</kbd>/<kbd>JOY STICK Up</kbd>: push down<br>";
+        instructions += "<kbd>l</kbd>/<kbd>JOY STICK Down</kbd>: pull up<br>";
+        instructions += "<kbd>o</kbd>+<kbd>l</kbd>/<kbd>JOY STICK Center</kbd>: center elevator<br>";
+        instructions += "<kbd>r</kbd>/<kbd>SELECT Button</kbd>: reset the demonstration<br></p>";
         return instructions;
     }
 }

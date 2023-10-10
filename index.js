@@ -87,6 +87,7 @@ const OnResize = function()
         $("#LAYOUT_").css("grid-template-areas", "'HEADER_ HEADER_ HEADER_' 'MENU_ MAIN_ MAIN_' 'FOOTER_ FOOTER_ FOOTER_'");
 
         indexVariables.screenLayoutType = ($("main").width() >= $("main").height()) ? 0 : 1;
+        $(".IN_TWO_").css("width", "calc(50% - 2px)");
     }
     else
     {
@@ -94,11 +95,13 @@ const OnResize = function()
         $("#LAYOUT_").css("grid-template-areas", "'HEADER_ HEADER_ HEADER_' 'MAIN_ MAIN_ MAIN_' 'FOOTER_ FOOTER_ FOOTER_'");
 
         indexVariables.screenLayoutType = ($("main").width() >= $("main").height()) ? 2 : 3;
+        $(".IN_TWO_").css("width", "calc(100% - 2px)");
     }
 
     homeVariables.OnResize();
     aiVariables.OnResize();
     projectDemosVariables.OnResize();
+    otherProjectsVariables.OnResize();
 };
 
 function main()
@@ -110,7 +113,7 @@ function main()
     main_HomePage();
     main_AIDemonstrationPage();
     main_ProjectDemonstrationsPage();
-    //main_OtherProjectsPage();
+    main_OtherProjectsPage();
     OnResize();
     const OnFramesStart = function()
     {

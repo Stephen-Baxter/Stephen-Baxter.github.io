@@ -15,14 +15,13 @@ class JQTBrain
 		}
 	}
 
-	constructor(number_of_states_, number_of_actions_, alpha_, gamma_, q_table_)
+	constructor(number_of_states_, number_of_actions_, alpha_, gamma_, q_table_ = [])
 	{
-		this.#numberOfStates = number_of_states_, this.#numberOfActions = number_of_actions_, this.#qTable = q_table_;
-		this.alpha = alpha_, this.gamma = gamma_;
-		this.#BuildQTable();
+		this.#numberOfStates = number_of_states_, this.#numberOfActions = number_of_actions_, this.#qTable = q_table_, this.alpha = alpha_, this.gamma = gamma_;
+		if (!q_table_.length) this.#BuildQTable();
 	}
 
-	GetActionNumber = function(state_, chooses_random_action_ = false)
+	GetAction = function(state_, chooses_random_action_ = false)
 	{
 		if(chooses_random_action_) return Math.floor(Math.random() * this.#numberOfActions);
 		else
@@ -36,9 +35,9 @@ class JQTBrain
 	{
 		this.#qTable[state_0_][action_0_] = this.#qTable[state_0_][action_0_] + this.alpha * (reward_1_ + this.gamma * Math.max.apply(null, this.#qTable[state_1_]) - this.#qTable[state_0_][action_0_]);
 	}
-	ResetQTable = function()
+	ResetQTable = function(alpha_ = this.alpha, gamma_ = this.gamma)
 	{
-		this.#qTable = [];
+		this.#qTable = [], this.alpha = alpha_, this.gamma = gamma_;
 		this.#BuildQTable();
 	}
 	get qTable() { return this.#qTable; }

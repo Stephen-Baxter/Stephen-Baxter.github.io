@@ -2,87 +2,108 @@ let otherProjectsVariables = null;
 
 class OTHER_PROJECTS_VARIABLES
 {
-    repoNames = repoData;
-
-    githubRepos = extractRepoData(repoData);
-    
-}
-
-const extractRepoData = function(repo_data_)
-{
-    let mdConverter = new showdown.Converter();
-    let githubRepos = [];
-    //let loadingScreenHtml = $("#LOADING_SCREEN_").html();
-    for (let i = 0; i < repo_data_.length; i++)
+    constructor(repo_data_)
     {
-        let repoName = repo_data_[i].nane;
-        let repoLink = "https://github.com/Stephen-Baxter/" + repo_data_[i];
-        let readme = "<h1>No read me for " + repoName + " found.</h1>";
-        let rawReadme = null;
-        //let readmeLinkMain = "https://raw.githubusercontent.com/Stephen-Baxter/" + repo_data_[i] + "/main/README.md";
-        let readmeLinkMaster = repo_data_[i].readmeLink;
-        $.ajax({ url: readmeLinkMaster, type: "get", async: false, success: function(data_) { rawReadme = data_; } });
-        //if (rawReadme == null) $.ajax({ url: readmeLinkMaster, type: "get", async: false, success: function(data_) { rawReadme = data_; } });
-        if (rawReadme != null) readme = mdConverter.makeHtml(rawReadme);
-        githubRepos.push({repoName: repoName, readme, repoLink: repoLink});
-        /*ju.Con(i / repo_data_.length);
-        $("#LOADING_SCREEN_").html(loadingScreenHtml + " " + i / repo_data_.length);
-        ju.Con( $("#LOADING_SCREEN_").html());*/
-    }
+        this.mdConverter = new showdown.Converter();
 
-    return githubRepos;
-}
+        this.repoData = repo_data_;
+        this.numberOfReadmes = repo_data_.length;
+        this.selectedReadmes = [];
+        this.readmesLoaded = [];
+        this.readmesLoadedIndexes = [];
 
-const OutputReadmeToHTML = function(repos_to_output_ = [])
-{
-    let innerHTML = "<div class=\"TEXT_AREA_\" style=\"grid-area: REPO_SEARCH_BAR_;\">" + $("#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_ :first-child").html() + "</div>";
-    let gridTemplateAreas = "'REPO_SEARCH_BAR_' ";
-    let gridTemplateRows = "auto ";
-    for (let i = 0; i < repos_to_output_.length; i++)
-    {
-        let qTD = "";
-        if (repos_to_output_[i].repoName == "QTableBrain")
+        let githubProjectsList = [];
+        let readmeLinks = [];
+        for (let i = 0; i < this.numberOfReadmes; i++)
         {
-            qTD = "<br><a onclick=\"ChangeMainPage(1);\" href=\"#AI_DEMONSTRATION_PAGE_\">QTableBrain Demonstration</a>"
+            githubProjectsList += "<div onclick=\"otherProjectsVariables.loadReadme("+i+")\">"+repo_data_[i].name+"</div>";
+            readmeLinks.push(repo_data_[i].readmeLink);
         }
-        innerHTML = innerHTML + "<div class=\"TEXT_AREA_\" style=\"grid-area: REPO_" + i + ";\">" + repos_to_output_[i].readme + "<a href=" + repos_to_output_[i].repoLink + " target=\"_blank\">" + repos_to_output_[i].repoName + "'s Github Link</a>" + qTD + "</div>";
-        gridTemplateAreas = gridTemplateAreas + "'REPO_" + i + "' ";
-        gridTemplateRows = gridTemplateRows + "auto ";
-    }
-    $("#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_").html(innerHTML);
-    $("#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-areas", gridTemplateAreas);
-    $("#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-rows", gridTemplateRows);
-    $("#OTHER_PROJECTS_PAGE_ .TEXT_AREA_CONTAINER_").css("grid-template-columns", "100%");
-}
-
-const Search_Repos = function(repo_to_search_)
-{
-    let reposToOutput = [];
-    if (repo_to_search_ == "")
-    {
-        reposToOutput = otherProjectsVariables.githubRepos;
-    }
-    else
-    {
-        otherProjectsVariables.githubRepos.forEach(repo_ =>
+        githubProjectsList += "<div onclick=\"otherProjectsVariables.loadAllReadmes()\">All</div>";
+        $("#GITHUB_PROJECTS_LIST_").html(githubProjectsList);
+        for (let i = 0; i < this.numberOfReadmes+1; i++)
         {
-            if (repo_.readme.toLowerCase().includes(repo_to_search_.toLowerCase()))
-            {
-                reposToOutput.push(repo_);
-            }
-        });
+            $("#GITHUB_PROJECTS_LIST_").children().eq(i).addClass("BUTTON_");
+            $("#GITHUB_PROJECTS_LIST_").children().eq(i).addClass("CENTER_");
+        }
     }
-    OutputReadmeToHTML(reposToOutput);
-    $("#OTHER_PROJECTS_PAGE_ :input").val(repo_to_search_);
-    $("#OTHER_PROJECTS_PAGE_ :input").focus();
-} 
+
+    OnResize = function()
+    {
+        if (indexVariables.screenLayoutType == 0 || indexVariables.screenLayoutType == 2)
+        { 
+            $("#GITHUB_PROJECTS_LIST_").css("grid-template-columns", "repeat(3, 33.33%)");
+        }
+        else
+        {  
+            $("#GITHUB_PROJECTS_LIST_").css("grid-template-columns", "repeat(2, 50%)");
+        }
+    }
+
+    highLightSelectReadmeButtons = function()
+    {
+        for (let i = 0; i < this.numberOfReadmes; i++)
+        {
+            $("#GITHUB_PROJECTS_LIST_").children().eq(i).removeClass("SELECTED_");
+        }
+        for (let i = 0; i < this.selectedReadmes.length; i++)
+        {
+            $("#GITHUB_PROJECTS_LIST_").children().eq(this.selectedReadmes[i]).addClass("SELECTED_");
+        }
+    }
+
+    extractRepoData = function(index_, repo_data_)
+    {
+        let rawReadme = null;
+        let readme = "";
+        let readmeLink = this.repoData[index_].readmeLink;
+        $.ajax({ url: readmeLink, type: "get", async: false, success: function(data_) { rawReadme = data_; } });
+        if (rawReadme != null) readme = this.mdConverter.makeHtml(rawReadme);
+        
+        return readme;
+    }
+
+    DisplaySelectedReadmes = function()
+    {
+        let githubProjectsDisplay = "";
+        for (let i = 0; i < this.selectedReadmes.length; i++)
+        {
+            for (let j = 0; j < this.readmesLoaded.length; j++)
+            {
+                if (this.readmesLoaded[j][0] === this.selectedReadmes[i])
+                {
+                    let readme = this.readmesLoaded[j][1];
+                    let margin = (i===0) ? 0: 10;
+                    githubProjectsDisplay += "<div style=\"margin-top: " + margin + "px;\" class=\"TEXT_AREA_\">" + readme + "</div>";
+                }    
+            }
+        }
+        $("#GITHUB_PROJECTS_DISPLAY_").html(githubProjectsDisplay);
+    }
+
+    loadReadme = function(index_)
+    {
+        if (!this.readmesLoadedIndexes.includes(index_))
+        {
+            this.readmesLoaded.push([index_, this.extractRepoData(index_)]);
+            this.readmesLoadedIndexes.push(index_);
+        }
+        if (!this.selectedReadmes.includes(index_)) this.selectedReadmes.push(index_);
+        else this.selectedReadmes.splice(this.selectedReadmes.indexOf(index_), 1);
+        this.highLightSelectReadmeButtons();
+        this.DisplaySelectedReadmes();
+    }
+    loadAllReadmes = function()
+    {
+        if (this.selectedReadmes.length === this.numberOfReadmes) this.selectedReadmes = [];
+        else for (let i = 0; i < this.numberOfReadmes; i++) if (!this.selectedReadmes.includes(i)) this.loadReadme(i);
+        
+        this.highLightSelectReadmeButtons()
+        this.DisplaySelectedReadmes();
+    }  
+}
 
 const main_OtherProjectsPage = function()
 {
-    otherProjectsVariables = new OTHER_PROJECTS_VARIABLES();
-    
-    let reposToOutput = otherProjectsVariables.githubRepos;
-    OutputReadmeToHTML(reposToOutput);
-
-
+    otherProjectsVariables = new OTHER_PROJECTS_VARIABLES(repoData);
 }
