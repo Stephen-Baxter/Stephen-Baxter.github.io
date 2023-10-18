@@ -52,13 +52,71 @@ class OTHER_PROJECTS_VARIABLES
         }
     }
 
-    extractRepoData = function(index_, repo_data_)
+    readmeToHtml = function(raw_readme_)
+    {
+        let readme = raw_readme_
+        
+        //
+        //.replace(/\d+\. (.*$)/gim, "<li class=\"MDOL_\">$1</li>")
+        .replace(/>+ (.*$)/gim, "<div>| $1</div>")
+        .replace(/(  )\n/gim, "<br>\n")
+        .replace(/((   )|(  ))/gim, "<>")
+        .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+        .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+        .replace(/^### (.*$)/gim, "<h3>$1</h3>")
+        .replace(/^#### (.*$)/gim, "<h4>$1</h4>")
+        .replace(/^##### (.*$)/gim, "<h5>$1</h5>")
+        .replace(/^###### (.*$)/gim, "<h6>$1</h6>")
+        .replace(/\*(.*)\*/gim, "<i>$1</i>")
+        .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>")
+        .replace(/!\[(.*)\]\((.*)\)/gim, "<img alt=\"$1\" src=\"$2\">")
+        .replace(/\[(.*)\]\((.*)\)/gim, "<a href=\"$2\">$1</a>")
+        .replace(/``(.*)``/gim, "<pre><code>$1</code></pre>")
+        .replace(/(\n)/gim, "@")
+        //let mdoli = /(?<=@)\d+\. (.*?)@(?=((@)|(\d+\.)|(<\/li>)))/gim;
+        let mdoli = /@\d+\. (.*?)(?=((@@)|(@\d+\.)|(@<li>)))/gim;
+        let j = false
+        while (mdoli.test(readme))
+        {
+            readme = readme.replace(/<li class=\"MDOL_\">/gim, "<li>");
+            readme = readme.replace(mdoli, "<li class=\"MDOL_\">$1</li>");
+            //if(j) {jge.l(11);break};
+            //readme = readme.replace(/((<li class=\"MDOL_\">.*<\/li>@)+)(?=((@<)|(\d+\.)))/gim, "<ol>$1</ol>");
+            readme = readme.replace(/((<li class=\"MDOL_\">.*?<\/li>@)+)(?=((@)|()))/gim, "<ol>$1</ol>");
+            //if(!j) break;
+            
+            readme = readme.replace(/<>(\d+\.)/gim, "$1");
+            //if(!j) break;
+            j = true
+            //if(j) break;
+        }
+        readme = readme.replace(/<li class=\"MDOL_\">/gim, "<li>");
+        
+        let mduli = /@- (.*?)(?=((@@)|(@<\/div>)|(@-)|(@<li>)|(@<>)))/gim;
+        while (mduli.test(readme))
+        {
+            readme = readme.replace(/<li class=\"MDUL_\">/gim, "<li>");
+            readme = readme.replace(mduli, "<li class=\"MDUL_\">$1</li>");
+            //break;
+            readme = readme.replace(/((<li class=\"MDUL_\">.*?<\/li>@)+)(?=((@)|(<\/div>)|()))/gim, "<ul>$1</ul>");
+            readme = readme.replace(/<>(-)/gim, "$1");
+            j = true
+            if(j) break;
+        }
+
+        readme = readme.replace(/(@<>)/gim, "");
+        readme = readme.replace(/@/gim, "<br>");
+        return readme;
+    }
+
+    extractRepoData = function(index_)
     {
         let rawReadme = null;
         let readme = "";
         let readmeLink = this.repoData[index_].readmeLink;
         $.ajax({ url: readmeLink, type: "get", async: false, success: function(data_) { rawReadme = data_; } });
-        if (rawReadme != null) readme = this.mdConverter.makeHtml(rawReadme);
+        if (rawReadme != null) readme = this.readmeToHtml(rawReadme);//this.mdConverter.makeHtml(rawReadme);
+        jge.l(rawReadme);
         
         return readme;
     }
