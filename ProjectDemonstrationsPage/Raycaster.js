@@ -1,8 +1,16 @@
 class RAYCASTER
 {
-    constructor()
+    constructor(ctx_)
     {  
-        
+        this.frameBuffer = new jge.FRAME_BUFFER(ctx_);
+        this.wallTextureLength = 4;
+        this.wallTexture = 
+        [
+            0xFF7F7F, 0x7FFF7F, 0x7FFF7F, 0xFF7F7F,
+            0x7FFF7F, 0xFF7F7F, 0x7FFF7F, 0x7FFF7F,
+            0x7FFF7F, 0x7FFF7F, 0xFF7F7F, 0x7FFF7F,
+            0xFF7F7F, 0x7FFF7F, 0x7FFF7F, 0xFF7F7F,
+        ];
     }
     WORLD = class
     {
@@ -42,7 +50,7 @@ class RAYCASTER
 const OnRaycasterFrameStart = function()
 {
     projectDemosVariables.raycaster.world = new projectDemosVariables.raycaster.WORLD("1111111111100000000110100001011000000001100000000110000000011000000001101000010110000000011111111111", 10);
-    projectDemosVariables.raycaster.player = new projectDemosVariables.raycaster.PLAYER({x: 5, y: 5}, 0, 60, 0.075, 0.0025);
+    projectDemosVariables.raycaster.player = new projectDemosVariables.raycaster.PLAYER({x: 5, y: 5}, 0, 60, 30, 2.5);
 }
 const OnRaycasterFrameUpdate = function(delta_time_)
 {
@@ -50,6 +58,9 @@ const OnRaycasterFrameUpdate = function(delta_time_)
 
     let world = projectDemosVariables.raycaster.world;
     let player = projectDemosVariables.raycaster.player;
+    let frameBuffer = projectDemosVariables.raycaster.frameBuffer;
+    let wallTexture = projectDemosVariables.raycaster.wallTexture;
+    let wallTextureLength = projectDemosVariables.raycaster.wallTextureLength;
 
     let playerLookAtX = Math.cos(jge.math.DegreeToRadian(player.lookAt));
     let playerLookAtY = Math.sin(jge.math.DegreeToRadian(player.lookAt));
@@ -58,7 +69,7 @@ const OnRaycasterFrameUpdate = function(delta_time_)
     let mapPositionOffset = {x: player.position.x % 1, y: player.position.y % 1};
     let mapPosition = {x: Math.floor(player.position.x), y: Math.floor(player.position.y)};
 
-    jge.ClearScreen(projectDemosVariables.screen, "black");
+    frameBuffer.Clear(0x000000);
 
     for (let i = 0; i < projectDemosVariables.screen.canvas.width; i++)
     {
@@ -74,7 +85,7 @@ const OnRaycasterFrameUpdate = function(delta_time_)
         let sideDistance = {x: 0, y: 0};
         let distanceToWall = 0;
         let wallSideX = true;
-                
+               
         if (rayDirection.x < 0)
         {
             step.x = -1;
@@ -114,8 +125,19 @@ const OnRaycasterFrameUpdate = function(delta_time_)
             if (world.GetMapData(playerMapPositionForDDA.x, playerMapPositionForDDA.y) === 1) break;
         }
 
-        if (wallSideX) distanceToWall = sideDistance.x - deltaDistance.x;
-        else distanceToWall = sideDistance.y - deltaDistance.y;
+        let colorX = 0;
+        if (wallSideX)
+        {
+            distanceToWall = sideDistance.x - deltaDistance.x;
+            if (rayDirection.x < 0) colorX = Math.floor(wallTextureLength * ((player.position.y + distanceToWall * rayDirection.y)%1));
+            else colorX = Math.floor(wallTextureLength * (1-(player.position.y + distanceToWall * rayDirection.y)%1));
+        }
+        else
+        {
+            distanceToWall = sideDistance.y - deltaDistance.y;
+            if (!(rayDirection.y < 0)) colorX = Math.floor(wallTextureLength * ((player.position.x + distanceToWall * rayDirection.x)%1));
+            else colorX = Math.floor(wallTextureLength * (1-(player.position.x + distanceToWall * rayDirection.x)%1));
+        }
 
         let distanceToScreen = projectDemosVariables.screen.canvas.width / 2.0 / player.screenHalfToDistanceToScreen;
         let wallHeight = 1 / distanceToWall * distanceToScreen;
@@ -123,47 +145,55 @@ const OnRaycasterFrameUpdate = function(delta_time_)
         let ceiling = Math.floor(projectDemosVariables.screen.canvas.height / 2 - wallHeight / 2);
         if (ceiling < 0) ceiling = 0;
         let floor = Math.floor(projectDemosVariables.screen.canvas.height / 2 + wallHeight / 2);
-        if (floor >= projectDemosVariables.screen.canvas.height) floor = projectDemosVariables.screen.canvas.height - 1;
-        //jge.l(ceiling, floor);
-        let playerRotateVelocity = player.rotateVelocity * delta_time_;
-	    let playerMoveVelocity = player.moveVelocity * delta_time_;
-        if (indexVariables.keyBuffer.IsKeyDown("a") || projectDemosVariables.gamePad.joyStick.right)
+        if (floor > projectDemosVariables.screen.canvas.height) floor = projectDemosVariables.screen.canvas.height;
+
+
+        for (let j = ceiling; j < floor; j++)
         {
-            player.lookAt = player.lookAt + playerRotateVelocity;
-	        if (player.lookAt >= 360) player.lookAt - 360;
+            let wallY = j - Math.floor(projectDemosVariables.screen.canvas.height/2-wallHeight/2);
+            let colorY = Math.floor(wallY/wallHeight*wallTextureLength);
+            let color = wallTexture[colorY*wallTextureLength+colorX];
+            frameBuffer.SetPixel(i, j, color)
         }
-        if (indexVariables.keyBuffer.IsKeyDown("d") || projectDemosVariables.gamePad.joyStick.left)
+    }
+    frameBuffer.Draw();
+
+    let playerRotateVelocity = player.rotateVelocity * delta_time_;
+    let playerMoveVelocity = player.moveVelocity * delta_time_;
+    if (indexVariables.keyBuffer.IsKeyDown("a") || projectDemosVariables.gamePad.joyStick.right)
+    {
+        player.lookAt = player.lookAt + playerRotateVelocity;
+        if (player.lookAt >= 360) player.lookAt - 360;
+    }
+    if (indexVariables.keyBuffer.IsKeyDown("d") || projectDemosVariables.gamePad.joyStick.left)
+    {
+        player.lookAt = player.lookAt - playerRotateVelocity;
+        if (player.lookAt < 0) player.lookAt + 360;
+    }
+    if (indexVariables.keyBuffer.IsKeyDown("w") ||  projectDemosVariables.gamePad.joyStick.up)
+    {
+        let newPositionX = player.position.x + playerLookAtX * playerMoveVelocity;
+        let newPositionY = player.position.y + playerLookAtY * playerMoveVelocity;
+        if (Math.floor(newPositionX) >= 0 &&  Math.floor(newPositionX) < world.mapWidth && Math.floor(newPositionY) >= 0 && Math.floor(newPositionY) < world.mapWidth)
         {
-            player.lookAt = player.lookAt - playerRotateVelocity;
-	        if (player.lookAt < 0) player.lookAt + 360;
-        }
-        if (indexVariables.keyBuffer.IsKeyDown("w") ||  projectDemosVariables.gamePad.joyStick.up)
-        {
-            let newPositionX = player.position.x + playerLookAtX * playerMoveVelocity;
-            let newPositionY = player.position.y + playerLookAtY * playerMoveVelocity;
-            if (Math.floor(newPositionX) >= 0 &&  Math.floor(newPositionX) < world.mapWidth && Math.floor(newPositionY) >= 0 && Math.floor(newPositionY) < world.mapWidth)
+            if (world.GetMapData(Math.floor(newPositionX), Math.floor(newPositionY)) == 0)
             {
-                if (world.GetMapData(Math.floor(newPositionX), Math.floor(newPositionY)) == 0)
-                {
-                    player.position.x = newPositionX;
-                    player.position.y = newPositionY;
-                }
+                player.position.x = newPositionX;
+                player.position.y = newPositionY;
             }
         }
-        if (indexVariables.keyBuffer.IsKeyDown("s") ||  projectDemosVariables.gamePad.joyStick.down)
+    }
+    if (indexVariables.keyBuffer.IsKeyDown("s") ||  projectDemosVariables.gamePad.joyStick.down)
+    {
+        let newPositionX = player.position.x - playerLookAtX * playerMoveVelocity;
+        let newPositionY = player.position.y - playerLookAtY * playerMoveVelocity;
+        if (Math.floor(newPositionX) >= 0 &&  Math.floor(newPositionX) < world.mapWidth && Math.floor(newPositionY) >= 0 && Math.floor(newPositionY) < world.mapWidth)
         {
-            let newPositionX = player.position.x - playerLookAtX * playerMoveVelocity;
-            let newPositionY = player.position.y - playerLookAtY * playerMoveVelocity;
-            if (Math.floor(newPositionX) >= 0 &&  Math.floor(newPositionX) < world.mapWidth && Math.floor(newPositionY) >= 0 && Math.floor(newPositionY) < world.mapWidth)
+            if (world.GetMapData(Math.floor(newPositionX), Math.floor(newPositionY)) == 0)
             {
-                if (world.GetMapData(Math.floor(newPositionX), Math.floor(newPositionY)) == 0)
-                {
-                    player.position.x = newPositionX;
-                    player.position.y = newPositionY;
-                }
+                player.position.x = newPositionX;
+                player.position.y = newPositionY;
             }
         }
-        //jge.l(ceiling, floor);
-        jge.DrawLine(projectDemosVariables.screen, "rgb(0, 255, 0)", [i, ceiling], [i, floor]);
     }
 }

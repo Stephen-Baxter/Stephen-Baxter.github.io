@@ -385,6 +385,33 @@ const jge = {
         let m = new jge.MATRIX([[a*f,0,0,0],[0,f,0,0],[0,0,q,1],[0,0,-z_near_*q,0]]);
         return m;
     },
+    FRAME_BUFFER: class
+    {
+        constructor(ctx_)
+        {
+            this.ctx = ctx_
+            this.width = this.ctx.canvas.width;
+            this.height = this.ctx.canvas.height;
+            this.buffer = [];
+            this.Clear("black");
+            this.id = this.ctx.getImageData(0, 0, this.width, this.height);
+        }
+
+        Clear = function(color_) { for (let i = 0; i < this.width*this.height; i++) this.buffer[i] = color_; }
+        SetPixel = function(x_, y_, color_) { this.buffer[y_*this.width+x_] = color_; }
+        Draw = function()
+        {
+            for (let i = 0; i < this.width * this.height * 4; i+=4)
+            {
+                let color = this.buffer[i/4];
+                this.id.data[i + 0] = (color & 0xFF0000) >> 16;
+                this.id.data[i + 1] = (color & 0x00FF00) >> 8;
+                this.id.data[i + 2] = color & 0x0000FF;
+                this.id.data[i + 3] = 0xFF;
+            }
+            this.ctx.putImageData(this.id, 0, 0);
+        }
+    },
     SPRITE: class
     {
         constructor(sprite_sheet_, sprite_x_start_, sprite_y_start_, sprite_size_, theta_=0)

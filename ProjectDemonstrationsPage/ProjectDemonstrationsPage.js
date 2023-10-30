@@ -143,7 +143,7 @@ const main_ProjectDemonstrationsPage = function()
     $("#SELECT_").mousemove(OnSelectButtonMouseMove);
     $("#SELECT_").mouseleave(OnSelectButtonMouseLeave);
     projectDemosVariables.flightSimulator = new FLIGHT_SIMULATOR();
-    projectDemosVariables.raycaster = new RAYCASTER();
+    projectDemosVariables.raycaster = new RAYCASTER(projectDemosVariables.screen);
     ChangeDemonstration(0);
     
 }

@@ -59,8 +59,11 @@ const ChangeMainPage = function(page_number_)
             $("#MENU_").fadeOut(400);
             indexVariables.menuInMobileToggleOn = !indexVariables.menuInMobileToggleOn;
         }
+        let pageNumber = "#" + indexVariables.dictionary[indexVariables.currentPageNumber];
+        $(pageNumber+"#HOME_PAGE_TEXT_AREA_,"+pageNumber+" .MAIN_PAGE_").scrollTop(0);
+        $(pageNumber + " p").each(function() { this.classList.remove("P_OUT_OF_VIEW_"); });
     }
-    $("#" + indexVariables.dictionary[indexVariables.currentPageNumber]).scrollTop(0);
+    
 }
 
 const ToggleMenuInMobile = function()
@@ -141,7 +144,24 @@ function main()
     $("#MENU_").children().eq(indexVariables.currentPageNumber).children().eq(0).css("transform", "rotateZ(90deg)");
     ChangeMainPage(indexVariables.currentPageNumber);
 
+    function IsInView(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
     $(window).resize(OnResize);
+    $("#HOME_PAGE_TEXT_AREA_, .MAIN_PAGE_").scroll(function(){
+        $("#" + indexVariables.dictionary[indexVariables.currentPageNumber] + " p").each(function()
+        {
+            if (IsInView(this)) this.classList.remove("P_OUT_OF_VIEW_")
+            else this.classList.add("P_OUT_OF_VIEW_");
+        });
+    });
 
     $("#LOADING_SCREEN_").hide();
     jge.l("done");

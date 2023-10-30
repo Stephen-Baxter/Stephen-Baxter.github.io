@@ -7,6 +7,12 @@ p
     margin-right: auto;
     background-color: rgba(192, 192, 192, 50%);
     font-size: 20px;
+    opacity: 1;
+    transition: opacity 250ms linear;
+}
+p.p2.P_OUT_OF_VIEW_
+{
+    opacity: 0;
 }
 .CENTER_
 {
@@ -114,8 +120,8 @@ header h3
 }
 .BUTTON_:focus, .BUTTON_.HOVER_, .BUTTON_.SELECTED_
 {
-    background-color: rgb(127, 255, 127);
-    border: 10px solid rgb(255, 127, 127);
+    background-color: #7fff7f;
+    border: 10px solid #ff7f7f;
 }
 
 
@@ -267,10 +273,12 @@ footer
     position: absolute;
     overflow: auto;
 }
-/*#HEAD_SHOT_
+#HEAD_SHOT_
 {
-    width: 25%;
-}*/
+    background-color: rgba(192, 192, 192, 0.75);;
+    width: calc(100% - 2px);
+    border: 1px solid rgb(60, 60, 60);
+}
 /*--------------------------------------------------------*/
 #AI_TITLE_
 {
