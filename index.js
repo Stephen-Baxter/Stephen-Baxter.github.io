@@ -6,6 +6,7 @@ class INDEX_VARIABLES
         this.currentPageNumber = 0;
         this.dictionary = [
             "HOME_PAGE_TEXT_AREA_",
+            "RESEARCH_PAPER_",
             "AI_DEMONSTRATION_PAGE_",
             "PROJECT_DEMONSTRATIONS_PAGE_",
             "OTHER_PROJECTS_PAGE_"
@@ -136,9 +137,10 @@ function main()
     }
     framLoop = new jge.RUN_FRAME_LOOP(OnFramesStart, OnFramesUpdate);
     let urlAtLoad = ""+ window.location.href;
-    if (urlAtLoad.endsWith('#AI_DEMONSTRATION_PAGE_')) indexVariables.currentPageNumber = 1;
-    else if (urlAtLoad.endsWith('#PROJECT_DEMONSTRATIONS_PAGE_')) indexVariables.currentPageNumber = 2;
-    else if (urlAtLoad.endsWith('#OTHER_PROJECTS_PAGE_')) indexVariables.currentPageNumber = 3;
+    if (urlAtLoad.endsWith('#RESEARCH_PAPER_')) indexVariables.currentPageNumber = 1;
+    else if (urlAtLoad.endsWith('#AI_DEMONSTRATION_PAGE_')) indexVariables.currentPageNumber = 2;
+    else if (urlAtLoad.endsWith('#PROJECT_DEMONSTRATIONS_PAGE_')) indexVariables.currentPageNumber = 3;
+    else if (urlAtLoad.endsWith('#OTHER_PROJECTS_PAGE_')) indexVariables.currentPageNumber = 4;
     else indexVariables.currentPageNumber = 0;
     $("#MENU_").children().eq(indexVariables.currentPageNumber).addClass("SELECTED_");
     $("#MENU_").children().eq(indexVariables.currentPageNumber).children().eq(0).css("transform", "rotateZ(90deg)");

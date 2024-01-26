@@ -194,7 +194,7 @@ header h3
 }
 .MENU_BUTTON_
 {
-    height: calc(100% - 20px);
+    height: 80px;
     position: relative;
     font-family: monospace;
     font-size: 1.5em;
