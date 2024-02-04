@@ -352,7 +352,7 @@ const OnAIFrameStart = function() {
 }
 const OnAIFrameUpdate = function(time_step_)
 {
-    if (indexVariables.currentPageNumber === 1 && !aiVariables.pause)
+    if (indexVariables.currentPageNumber === indexVariables.dictionary.indexOf("AI_DEMONSTRATION_PAGE_") && !aiVariables.pause)
     {
         if (aiVariables.aiIsTurnOn)
         {

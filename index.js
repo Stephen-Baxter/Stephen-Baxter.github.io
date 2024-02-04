@@ -6,7 +6,8 @@ class INDEX_VARIABLES
         this.currentPageNumber = 0;
         this.dictionary = [
             "HOME_PAGE_TEXT_AREA_",
-            "RESEARCH_PAPER_",
+            "RESUME_PAGE_",
+            "RESEARCH_PAPER_PAGE_",
             "AI_DEMONSTRATION_PAGE_",
             "PROJECT_DEMONSTRATIONS_PAGE_",
             "OTHER_PROJECTS_PAGE_"
@@ -130,18 +131,29 @@ function main()
         switch (indexVariables.currentPageNumber)
         {
             case 0: OnHomeFrameUpdate(delta_time_); break;
-            case 1: OnAIFrameUpdate(time_step_); break;
-            case 2: OnProjectDemonstrationsFrameUpdate(delta_time_); break;
+            case 3: OnAIFrameUpdate(time_step_); break;
+            case 4: OnProjectDemonstrationsFrameUpdate(delta_time_); break;
             default: break;
         }
     }
     framLoop = new jge.RUN_FRAME_LOOP(OnFramesStart, OnFramesUpdate);
     let urlAtLoad = ""+ window.location.href;
-    if (urlAtLoad.endsWith('#RESEARCH_PAPER_')) indexVariables.currentPageNumber = 1;
-    else if (urlAtLoad.endsWith('#AI_DEMONSTRATION_PAGE_')) indexVariables.currentPageNumber = 2;
-    else if (urlAtLoad.endsWith('#PROJECT_DEMONSTRATIONS_PAGE_')) indexVariables.currentPageNumber = 3;
-    else if (urlAtLoad.endsWith('#OTHER_PROJECTS_PAGE_')) indexVariables.currentPageNumber = 4;
-    else indexVariables.currentPageNumber = 0;
+    indexVariables.currentPageNumber = 0;
+    for (let i = 1; i < indexVariables.dictionary.length; i++)
+    {
+        if (urlAtLoad.endsWith(indexVariables.dictionary[i]))
+        {
+            indexVariables.currentPageNumber = i;
+            break;
+        }
+    }
+    /*if (urlAtLoad.endsWith(indexVariables.dictionary[1])) indexVariables.currentPageNumber = 1;
+    else if (urlAtLoad.endsWith(indexVariables.dictionary[2])) indexVariables.currentPageNumber = 2;
+    else if (urlAtLoad.endsWith(indexVariables.dictionary[3])) indexVariables.currentPageNumber = 3;
+    else if (urlAtLoad.endsWith(indexVariables.dictionary[4])) indexVariables.currentPageNumber = 4;
+    else if (urlAtLoad.endsWith(indexVariables.dictionary[5])) indexVariables.currentPageNumber = 5;
+    else indexVariables.currentPageNumber = 0;*/
+    window.console.log(indexVariables.currentPageNumber);
     $("#MENU_").children().eq(indexVariables.currentPageNumber).addClass("SELECTED_");
     $("#MENU_").children().eq(indexVariables.currentPageNumber).children().eq(0).css("transform", "rotateZ(90deg)");
     ChangeMainPage(indexVariables.currentPageNumber);
