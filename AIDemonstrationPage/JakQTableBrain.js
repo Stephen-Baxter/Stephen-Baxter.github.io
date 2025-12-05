@@ -4,6 +4,13 @@ class JQTBrain
 	#numberOfActions = 0;
 	#qTable = [];
 
+	#GeneratePseudoRandomNumber = function()
+	{
+		let seed = Math.random();
+		seed = (1664525 * seed + 1013904223) >>> 0;
+		return seed / 4294967296;
+	}
+
 	#BuildQTable = function()
 	{
 		this.#qTable = [];
@@ -23,7 +30,7 @@ class JQTBrain
 
 	GetAction = function(state_, chooses_random_action_ = false)
 	{
-		if(chooses_random_action_) return Math.floor(Math.random() * this.#numberOfActions);
+		if(chooses_random_action_) return Math.floor(#GeneratePseudoRandomNumber() * this.#numberOfActions);
 		else
 		{
 			let highestQTableValueForState = Math.max.apply(null, this.#qTable[state_]);
@@ -41,4 +48,5 @@ class JQTBrain
 		this.#BuildQTable();
 	}
 	get qTable() { return this.#qTable; }
+
 }
